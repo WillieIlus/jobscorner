@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+<title>{% block title %}  My Account  | {{ block.super }} {% endblock %}</title>
+{% block lead %}
+My Account 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item active">My Account</li>
+{% endblock  %}
+
+
+{% block content %}
+
+<section id="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-9 col-md-offset-2">
+        <div class="page-ads box">
+          <form enctype="multipart/form-data" class="form-ad" action="." method="POST">
+            <div class="form-group is-empty">
+              {% csrf_token %}
+              {% crispy form %}
+              <button type="submit" class="btn btn-success">Save changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

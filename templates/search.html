@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+{% block title %}   Search   | {{ block.super }} {% endblock %}
+
+{% block content %}
+<div class="container">
+  <form method="get">
+    <div class="row">
+      <div class="col-md-4 col-sm-12 p-0">
+        {{ filter.form.username.label_tag }}
+        {% render_field filter.form.username class="form-control" %}
+      </div>
+      <div class="col-md-4 col-sm-12 p-0">
+        {{ filter.form.first_name.label_tag }}
+        {% render_field filter.form.first_name class="form-control" %}
+      </div>
+      <div class="col-md-3 col-sm-12 p-0">
+        {{ filter.form.last_name.label_tag }}
+        {% render_field filter.form.last_name class="form-control" %}
+      </div>
+      <div class="mb-0 mt-4 col-md-1 col-sm-12 p-0">
+          <button type="submit" class="btn btn-primary">
+            <i class="fas fa-search"></i> Search
+          </button>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<!--table list-->
+<div class="container">
+  {% for user in filter.qs %}
+  <div class="card col-md-12">
+    <div class="row card-body">
+      <div class="col-md-2 ">
+        <a href="#" class="pull-left ">
+          <img src='{% static "img/chair-daylight-desk-1181251.jpg" %}' class="d-block w-100 img-responsive">
+        </a>
+      </div>
+      <div class="col-md-10">
+        <h4 class="title">
+          {{ user.username }} - {{ user.get_full_name }}
+        </h4>
+        <span>
+                <p class="summary">Ut enim ad minim veniam, quis nostrud exercitation...</p></span>
+        <div>
+          <hr/>
+          <a href="{{ user.get_absolute_url }}" class="card-link btn btn-primary pull-right">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+<!--end table list-->
+
+{% endblock %}

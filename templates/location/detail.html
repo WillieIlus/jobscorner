@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}  {{ location.name }}  | {{ block.super }} {% endblock %}
+{% block lead %}
+{{ location.name }} 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item"><a href='{% url "location:list" %}'>Location List</a></li>
+      <li class="breadcrumb-item active">{{ location.name }}</li>
+{% endblock  %}
+
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ location.name }}</h1>
+    <p class="lead">{{ location.description }}</p>
+    <hr/>
+    <p>
+      <i class="fas fa-user-tie"></i> <a> Wilson Irungu </a> |
+      <span><i class="far fa-calendar-alt"></i></span> at Jan/17/2019 |
+      <span><i class="fas fa-tags"></i></span> Tags: money, cash, bank, |
+      <span><i class="far fa-money-bill-alt"></i></span> Salary : 7000
+    </p>
+    <div class="pull-right">
+      <a href='{% url "location:edit" location.slug %}' type="button" class="btn btn-primary pull-right">Update
+      </a>
+      <a href='{% url "location:delete" location.slug %}' type="button" class="btn btn-danger pull-right">Delete
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

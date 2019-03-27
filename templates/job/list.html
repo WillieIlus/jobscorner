@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %} Job List | {{ block.super }} {% endblock %}
+{% block lead %}
+Job List
+{% endblock %}
+{% block jumbotron %} <li class="breadcrumb-item"> Job List </li>{% endblock  %}
+
+
+
+{% block content %}
+
+<!--simple card-->
+<div class="mt-5 container">
+  {% if job %}
+  {% for obj in job %}
+  <div class="card mx-auto col-md-12 mb-2 ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          {% if obj.company.logo %}
+          <img alt="..." class="d-block w-100" src='{{ obj.company.logo.url }}'>
+          {% else %}
+          <img alt="..." class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+          {% endif%}
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <div class="row">
+          <div class=" col-md-10 post-header-line">
+            <h4 class="card-title"><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> </h4>
+            <h6 class="card-subtitle mb-2 text-muted"> <span><i class="far fa-money-bill-alt"></i></span> KES: {{ obj.salary }}</h6>
+          </div>
+          <div class="col-md-2 pull-right">
+            <a class="card-link" href="{{ obj.get_absolute_url }}">
+              <button type="button" class="btn btn-primary">Apply</button>
+            </a>
+          </div>
+          </div>
+          <hr/>
+          <div class="col-md-12 ">
+            <p class="card-text">{{ obj.description|truncatechars:250|linebreaks }}</p>
+            {% if obj.tags %}
+            {% for tags in obj.tags.all %}
+            <span class="badge badge-pill badge-secondary">{{ tags.name }}</span>
+            {% endfor %}
+            {% endif %}
+            <div class="pull-right col-md-4 col-sm-12">
+              <i class="fas fa-map-marker-alt"></i> <a>  {{ obj.country.name }}, {{ obj.location.name }} </a>
+              <i class="far fa-calendar-alt"></i> at Jan/17/2019
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+        {% endfor %}
+  {% else %}
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">currently no jobs</h5>
+    </div>
+    <div class="modal-body">
+      <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Job Vacancy</a>
+    </div>
+  </div>
+</div>
+  {% endif %}
+</div>
+
+<!--end of simple card-->
+
+
+
+
+
+
+
+
+{% endblock content %}

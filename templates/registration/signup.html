@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Sign up for a free account</h5>
+    </div>
+    <div class="modal-body">
+      <a href="{% url 'accounts:normal_user_signup' %}" class="btn btn-success btn-lg" role="button">I'm not
+        employer</a>
+      <a href="{% url 'accounts:employer_signup' %}" class="btn btn-warning btn-lg" role="button">I'm an employer</a>
+      <hr/>
+      <div>
+        <p>
+          have an account? <a href='{% url "accounts:login" %}'>Login</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+

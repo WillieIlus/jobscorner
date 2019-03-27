@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+<title>{% block title %}  {{ category.name }}  | {{ block.super }} {% endblock %}</title>
+{% block lead %}
+ {{ category.name }} 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item"><a href='{% url "category:list" %}'>Category List</a></li>
+      <li class="breadcrumb-item active">{{ category.name }}</li>
+{% endblock  %}
+
+{% block content %}
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ category.name }}</h1>
+    <p class="lead">{{ category.description }}</p>
+    <hr/>
+    <div class="pull-right">
+      <a href='{% url "category:edit" category.slug %}' type="button" class="btn btn-primary pull-right">Update
+      </a>
+      <a href='{% url "category:delete" category.slug %}' type="button" class="btn btn-danger pull-right">Delete
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

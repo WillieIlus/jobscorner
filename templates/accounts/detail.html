@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}  User Profile  | {{ block.super }} {% endblock %}
+{% block lead %}
+ {{ company.name }} 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item"><a href='{% url "accounts:users" %}'>User List</a></li>
+      <li class="breadcrumb-item active">{{ user.name }}'s Profile </li>
+{% endblock  %}
+
+
+{% block content %}
+
+
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ user.name }}</h1>
+    <p class="lead">{{ user.description }}</p>
+    <hr/>
+    <div class="pull-right">
+      <a href='{% url "accounts:user_profile" user.slug %}' type="button" class="btn btn-primary pull-right">Update
+      </a>
+      </a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}  {{ job.title }}  | {{ block.super }} {% endblock %}
+{% block lead %}
+ {{ job.title }}
+{% endblock %}
+{% block jumbotron %}
+<li class="breadcrumb-item"><a href='{% url "job:list" %}'>Job List</a></li>
+<li class="breadcrumb-item active">{{ job.title }}</li></li>
+{% endblock  %}
+
+{% block content %}
+
+
+<!--simple card-->
+<div class="container mt-3 mb-3">
+  <div class="card mx-auto col-md-12 mb-2 ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-8 col-sm-12">
+          <h4 class="card-title">{{ job.title }}</span>
+          </h4>
+          <p class="card-text mb-2 text-muted">Date Posted: {{ job.paid_at }}</p>
+          <p class="card-text"> Monthly Salary: {{ job.salary }}</p>
+        </div>
+        <div class="pull-right col-md-4 col-sm-12">
+          <div class="row">
+            <div class="col-md-8 text-right">
+              <h4 class="card-title">{{ job.company }}
+              </h4>
+              <h6 class="card-subtitle mb-2 text-muted">{{ job.country }}, {{ job.location }}</h6>
+              <p class="card-text">3 Openings</p>
+            </div>
+            <div class="col-md-4">
+              <img alt="..." class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr/>
+      <div class="row">
+        <div class="col-md-9">
+          <a class="text-primary" href=""> <i class="fas fa-heart"></i></a> 20 watched like this
+        </div>
+        <div class="col-md-3 pull-right">
+          <a href='{% url "company:edit_job" job.slug %}' class="btn btn-primary">Update </a>
+          <a href='{% url "job:delete" job.slug %}' class="btn btn-danger">Delete </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2> Job Description </h2>
+          <div class=" content-markdown"> {{ job.description }}</div>
+          <hr/>
+          <h2>Requirements</h2>
+          <div class=" content-markdown">{{ job.benefits }}</div>
+          <hr/>
+          <h2>Benefits</h2>
+          <div class=" content-markdown">{{ job.benefits }}</div>
+          <hr/>
+          {% if job.url %}
+          <a class="btn btn-primary" href="{{ job.url }}" type="button">More Info
+          </a>
+          {% endif %}
+          <a class="btn btn-primary" href="#">Apply for this job now
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+          <h2>Job Details</h2>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+          <span>Job Id</span> <span class=" pull-right text-right">Jb1246789</span>
+          <hr/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--end of simple card-->
+
+{% endblock content %}

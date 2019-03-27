@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}  {{ country.name }}  | {{ block.super }} {% endblock %}
+{% block lead %}
+{{ job.title }}
+{% endblock %}
+{% block jumbotron %}
+<li class="breadcrumb-item"><a href='{% url "country:list" %}'>Country List</a></li>
+<li class="breadcrumb-item active">{{ country.name }}</li>
+{% endblock  %}
+
+{% block content %}
+
+<div class="container">
+  <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      {% if country.photo %}
+      <div class="carousel-item active">
+        <img src='{{ country.photo.url }}' class="d-block w-100" alt="...">
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="m-5">
+      <h1 class="display-4">{{ country.name }}</h1>
+      <p class="lead">{{ country.description }}</p>
+      <hr/>
+      <p>
+        <i class="fas fa-user-tie"></i> <a> Wilson Irungu </a> |
+        {% if country.website %}
+        <span> <i class="far fa-calendar-alt"></i><a href="{{ country.website}}"> Website  | </a> </span>
+        {% endif %}
+        <span></span> at Jan/17/2019
+      </p>
+      <div class="pull-right">
+        <a href='{% url "country:edit" country.slug %}' type="button" class="btn btn-primary pull-right">Update
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

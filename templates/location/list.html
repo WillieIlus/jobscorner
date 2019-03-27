@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+<title>{% block title %}  Location List  | {{ block.super }} {% endblock %}</title>
+{% block lead %}
+Location List 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item active"> Location List</li>
+      <li class="breadcrumb-item active"><a href='{% url "location:new" %}'> New</a></li>
+{% endblock  %}
+
+
+{% block content %}
+
+<div class="container">
+  {% if location %}
+
+  <div class="row mx-auto ">
+    {% for obj in location %}
+    <!--card-->
+    <div class="card m-2 " style="width: 18rem;">
+      {% if obj.photos %}
+      <img src='{{ obj.photo.url }}' class='img-responsive card-img-top'/>
+      {% else %}
+      {% endif %}
+
+      <div class="card-body">
+        <h5 class="card-title">{{ obj.name }}</h5>
+        <p class="card-text">{{ obj.description|truncatechars:100 }}... </p>
+      </div>
+      <div class="card-body">
+        <a class="card-link btn btn-primary " href="{{ obj.get_absolute_url }}">Details</a>
+      </div>
+    </div>
+    <!--endcard-->
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">currently no Location added </h5>
+    </div>
+    <div class="modal-body">
+      <a href="{% url 'location:new' %}" class="btn btn-success btn-lg" role="button">Add New Location</a>
+    </div>
+  </div>
+</div>
+  {% endif %}
+</div>
+{% endblock %}

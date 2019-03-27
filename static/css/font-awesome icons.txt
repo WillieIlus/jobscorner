@@ -1,0 +1,77 @@
+<i class="fas fa-map-pin"></i>
+<i class="fas fa-home"></i>
+<i class="fas fa-user-md"></i>
+<i class="fas fa-address-book"></i>
+<i class="fas fa-file-alt"></i>
+<i class="far fa-file-alt"></i>
+<i class="fas fa-building"></i>
+<i class="fas fa-file-alt"></i>
+<i class="fas fa-envelope-open"></i>
+<i class="fas fa-comments"></i>
+<i class="fas fa-comments"></i>
+<i class="fal fa-file"></i>
+<i class="fas fa-comments"></i>
+<i class="fas fa-pen-fancy"></i>
+<i class="fas fa-folder-open"></i>
+<i class="fas fa-chalkboard-teacher"></i>
+<i class="fas fa-microscope"></i>
+<i class="fas fa-school"></i>
+<i class="fas fa-theater-masks"></i>
+<i class="fas fa-laptop-code"></i>
+<i class="fas fa-piggy-bank"></i>
+<i class="fas fa-university"></i>
+<i class="fas fa-money-check-alt"></i>
+<i class="fas fa-business-time"></i>
+<i class="fas fa-user-tie"></i>
+<i class="fas fa-pencil-ruler"></i>
+<i class="fas fa-cash-register"></i>
+<i class="fas fa-cash-register"></i>
+<i class="fas fa-hospital"></i>
+<i class="fas fa-file-prescription"></i>
+<i class="fas fa-tv"></i>
+<i class="fas fa-phone"></i>
+<i class="fas fa-mobile-alt"></i>
+<i class="fas fa-mobile"></i>
+<i class="fas fa-headset"></i>
+<i class="fas fa-satellite"></i>
+<i class="fas fa-satellite-dish"></i>
+<i class="fas fa-balance-scale"></i>
+<i class="fas fa-bed"></i>
+<i class="fas fa-capsules"></i>
+<i class="fas fa-mortar-pestle"></i>
+<i class="fas fa-bus-alt"></i>
+<i class="fas fa-motorcycle"></i>
+<i class="far fa-trash-alt"></i>
+<i class="fas fa-industry"></i>
+<i class="fas fa-tractor"></i>
+<i class="fas fa-mobile"></i>
+
+<i class="fas fa-star"></i>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

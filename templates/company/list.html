@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}  Company List  | {{ block.super }} {% endblock %}
+{% block lead %}
+{{ job.title }}
+{% endblock %}
+{% block jumbotron %}
+<li class="breadcrumb-item active"> Company List</li>
+<li class="breadcrumb-item active"><a href='{% url "company:new" %}'> New</a></li>
+{% endblock  %}
+
+{% block content %}
+{% if company %}
+{% for obj in company %}
+<!--simple card-->
+<div class="container">
+  <div class="card mx-auto col-md-12 mb-2 ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          {% if obj.logo %}
+          <img class="d-block w-100" src='{{ obj.logo.url }}'/>
+          {% else %}
+          <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+          {% endif %}
+        </div>
+        <div class="pull-right col-md-8 col-sm-12">
+          <div class="col-md-12 post-header-line">
+            <h4 class="card-title">{{ obj.name }}<span class="badge badge-primary">{{ obj.category.name }}</span>
+            </h4>{% if obj.website %}
+            <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.website}}"> Website </a></h6>
+            {% endif %}
+            <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
+            <hr/>
+            <span><i class="fas fa-star"></i> 4.5 rating</span> |
+            <span><i class="fas fa-comments"></i> 7 reviews</span> |
+            {% if obj.location %}
+            <span><i class="fas fa-map-marker-alt"></i>{{ obj.location.name }} | {{ obj.location.country.name }}</span>
+            {% endif %}
+            <hr/>
+            <div class="pull-right">
+              <a href="" class="text-primary"> <i class="fas fa-heart"></i></a> 20 people like this
+              <a class="card-link" href="{{ obj.get_absolute_url }}">
+                <button type="button" class="btn btn-primary">Details</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end of simple card-->
+{% endfor %}
+{% else %}
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">currently no jobs</h5>
+    </div>
+    <div class="modal-body">
+      <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Your Company </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endblock content %}

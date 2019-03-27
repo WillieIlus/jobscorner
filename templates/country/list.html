@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}  Country List  | {{ block.super }} {% endblock %}
+{% block lead %}
+ {{ job.title }}
+{% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
+      <li class="breadcrumb-item active"> Country List</li>
+{% endblock  %}
+
+{% block content %}
+
+<div class="container">
+  {% if country %}
+
+  <div class="row mx-auto ">
+    {% for obj in country %}
+    <!--card-->
+    <div class="card m-2 " style="width: 18rem;">
+      {% if obj.photos %}
+      <img src='{{ obj.photo.url }}' class='img-responsive card-img-top'/>
+      {% else %}
+      {% endif %}
+
+      <div class="card-body">
+        <h5 class="card-title">{{ obj.name }}</h5>
+        <p class="card-text">{{ obj.description|truncatechars:100 }}... </p>
+      </div>
+      <div class="card-body">
+        <a class="card-link btn btn-primary " href="{{ obj.get_absolute_url }}">Details</a>
+      </div>
+    </div>
+    <!--endcard-->
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">currently no Countries added </h5>
+    </div>
+  </div>
+</div>
+  {% endif %}
+</div>
+{% endblock content %}

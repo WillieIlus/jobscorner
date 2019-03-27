@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+
+<title>{% block title %}  Login  | {{ block.super }} {% endblock %}</title>
+{% block lead %}
+Login 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item active">Login</li>
+{% endblock  %}
+
+
+{% block content %}
+
+{% if form.non_field_errors %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  {% for error in form.non_field_errors %}
+  <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+  {% endfor %}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}
+
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title"> Login </h5>
+    </div>
+    <div class="modal-body">
+      <form method='POST' action='' enctype='multipart/form-data' novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {% crispy form %}
+      </form>
+      <hr/>
+      <div>
+        <p>
+          Don't have an account? <a href='{% url "accounts:signup" %}'>Sign in here</a>
+        </p>
+        <small>
+          <a href="{% url 'accounts:password_reset' %}" class="text-muted">Forgot your password?</a>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+
+
+
+
+

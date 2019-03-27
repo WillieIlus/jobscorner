@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}  {{ title }}  | {{ block.super }} {% endblock %}
+{% block lead %}
+{{ title }} 
+ {% endblock %}
+{% block jumbotron %}
+      <li class="breadcrumb-item active">{{ title }}</li>
+{% endblock  %}
+
+
+{% block content %}
+<!--banner-->
+<div class="jumbotron">
+  <div class=" mx-auto">
+    <h5 class="lead"><strong> {{ title }} </strong></h5>
+    <hr class="my-4">
+    <ol class="breadcrumb ">
+      <li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
+      <li class="breadcrumb-item active"> </li>
+    </ol>
+  </div>
+</div>
+<!--endbanner-->
+
+<section id="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-9 col-md-offset-2">
+        <div class="page-ads box">
+          <form enctype="multipart/form-data" class="form-ad" action="." method="POST">
+            <div class="form-group is-empty">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <fieldset>
+                <div class="divider"><h3>Photos</h3></div>
+                {% for form in inlines %}
+                {{ form|crispy }}
+                {% endfor %}
+              </fieldset>
+              <button class="btn btn-success">Add your company</button>
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %}

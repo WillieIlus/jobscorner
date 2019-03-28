@@ -9,7 +9,7 @@ from .models import Category
 
 
 class CategoryForm(forms.ModelForm):
-    name = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Company Name'}))
+    name = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Category Name'}))
     photo = forms.ImageField(label='', widget=forms.ClearableFileInput(attrs={'placeholder': 'Photo'}))
     description = forms.CharField(label='', max_length=1024,
                                   widget=PagedownWidget(attrs={'placeholder': 'Description'}))

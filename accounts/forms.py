@@ -7,8 +7,15 @@ from django.db import transaction
 from accounts.models import User
 
 
-class SignUpForm(UserCreationForm):
-    email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
+class SignUp(UserCreationForm):
+    username = forms.CharField(label='', max_length=254, required=True,
+                               widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    email = forms.CharField(label='', max_length=254, required=True,
+                            widget=forms.EmailInput(attrs={'placeholder': 'Email'}))
+    password1 = forms.CharField(label='', max_length=254, required=True,
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+    password2 = forms.CharField(label='', max_length=254, required=True,
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Repeat Password'}))
 
     class Meta:
         model = User
@@ -25,6 +32,8 @@ class SignUpForm(UserCreationForm):
             Submit('submit', 'Signup'),
         )
 
+
+class SignUpForm(SignUp):
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -33,24 +42,7 @@ class SignUpForm(UserCreationForm):
         return user
 
 
-class EmployerSignUpForm(UserCreationForm):
-    email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout = Layout(
-            'username',
-            'email',
-            'password1',
-            'password2',
-            Submit('submit', 'Employer Signup'),
-        )
-
+class EmployerSignUpForm(SignUp):
     def save(self, commit=True):
         user = super().save(commit=False)
         user.is_employer = True
@@ -60,6 +52,11 @@ class EmployerSignUpForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
+    username = forms.CharField(label='', max_length=254, required=True,
+                               widget=forms.TextInput(attrs={'placeholder': 'username'}))
+    password = forms.CharField(label='', max_length=254, required=True,
+                                widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
+
     class Meta:
         model = User
         fields = ('username', 'password')

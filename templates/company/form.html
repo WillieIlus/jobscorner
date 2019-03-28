@@ -24,8 +24,8 @@
               {{ form|crispy }}
               <fieldset>
                 <div class="divider"><h3>Photos</h3></div>
-                {% for form in inlines %}
-                {{ form|crispy }}
+                {% for formset in inlines %}
+                {% crispy formset %}
                 {% endfor %}
               </fieldset>
               <button class="btn btn-success">Add your company</button>

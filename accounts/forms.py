@@ -29,7 +29,7 @@ class SignUp(UserCreationForm):
             'email',
             'password1',
             'password2',
-            Submit('submit', 'Signup'),
+            Submit('submit', 'Signup', css_class='btn btn-filled btn-log margin-right'),
         )
 
 
@@ -67,5 +67,6 @@ class LoginForm(AuthenticationForm):
         self.helper.layout = Layout(
             'username',
             'password',
-            Submit('submit', 'Login'),
+            Submit('submit', 'Login', css_class='btn btn-filled btn-log margin-right'), #<i class="fa fa-sign-in"></i>
+
         )

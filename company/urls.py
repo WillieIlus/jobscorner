@@ -12,7 +12,6 @@ urlpatterns = [
     path('<slug:slug>/delete/', CompanyDelete.as_view(), name='delete'),
     path('<slug:slug>/new/', JobCreate.as_view(), name='new_job'),
     path('<slug:slug>/job/edit/', JobEdit.as_view(), name='edit_job'),
-
     path('', CompanyList.as_view(), name='list'),
 
 ]

@@ -2,6 +2,42 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
 
+{% block domready %}
+<script>
+
+$("#id_username").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: form.attr("data-validate-username-url"),
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            alert(data.error_message);
+          }
+        }
+      });
+
+    });
+
+$("#id_email").change(function () {
+      var form = $(this).closest("form");
+      $.ajax({
+        url: form.attr("data-validate-email-url"),
+        data: form.serialize(),
+        dataType: 'json',
+        success: function (data) {
+          if (data.is_taken) {
+            alert(data.error_message);
+          }
+        }
+      });
+
+    });
+
+</script>
+{% endblock %}
+
 {% block content %}
 <!--banner-->
 <div class="jumbotron">
@@ -22,7 +58,7 @@
       <h5 class="modal-title">Signup — it’s free!</h5>
     </div>
     <div class="modal-body">
-      <form method='POST' action='' enctype='multipart/form-data' novalidate>
+      <form method='POST' action='' data-validate-email-url="{% url 'accounts:validate_email' %}" data-validate-username-url="{% url 'accounts:validate_username' %}" enctype='multipart/form-data' novalidate >
         {% csrf_token %}
         <input type="hidden" name="next" value="{{ next }}">
         {% crispy form %}
@@ -30,7 +66,7 @@
       <hr/>
       <div>
         <p>
-        have an account? <a href='{% url "accounts:login" %}'>Login</a>
+          have an account? <a href='{% url "accounts:login" %}'>Login</a>
         </p>
       </div>
     </div>

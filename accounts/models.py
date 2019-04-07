@@ -20,11 +20,11 @@ class User(AbstractUser):
         return self.username
 
     def get_absolute_url(self):
-        return reverse('accounts:user_profile', kwargs={'slug': self.slug})
+        return reverse('accounts:account', kwargs={'slug': self.slug})
 
 
 class NormalUser(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
     bio = models.TextField(max_length=500, blank=True)
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
@@ -37,25 +37,13 @@ class NormalUser(models.Model):
     linkedin = models.CharField(max_length=100, blank=True)
     google = models.CharField(max_length=100, blank=True)
     pinterest = models.CharField(max_length=100, blank=True)
-    following = models.ManyToManyField('self', through="Contact", related_name='followers', symmetrical=False)
+
 
     def __str__(self):
         return self.user.username
 
     def get_absolute_url(self):
-        return reverse('accounts:user_profile', kwargs={"slug": self.slug})
-
-
-class Contact(models.Model):
-    user_from = models.ForeignKey(User, related_name='rel_from_set', on_delete=models.CASCADE)
-    user_to = models.ForeignKey(User, related_name='rel_to_set', on_delete=models.CASCADE)
-    created = models.DateTimeField(auto_now_add=True, db_index=True)
-
-    class Meta:
-        ordering = ('-created',)
-
-    def __str__(self):
-        return '{} follows {}'.format(self.user_from, self.user_to)
+        return reverse('accounts:account', kwargs={"slug": self.user.slug})
 
 
 SKILL_LEVELS = (
@@ -68,7 +56,7 @@ SKILL_LEVELS = (
 
 
 class Skill(models.Model):
-    user = models.ForeignKey(NormalUser, related_name="skills", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name="skills", on_delete=models.CASCADE)
     name = models.CharField(max_length=200, unique=True, verbose_name=("name"))
     description = models.TextField(max_length=2000, blank=True)
     level = models.CharField(max_length=1, choices=SKILL_LEVELS, verbose_name=("level"))
@@ -82,7 +70,7 @@ class Skill(models.Model):
 
 
 class Experience(models.Model):
-    user = models.ForeignKey(NormalUser, related_name='experience', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='experience', on_delete=models.CASCADE)
     role = models.CharField(max_length=150)
     company = models.CharField(max_length=150)
     company_url = models.URLField('Company URL')
@@ -104,7 +92,7 @@ class Experience(models.Model):
 
 
 class Education(models.Model):
-    user = models.ForeignKey(NormalUser, related_name='education', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, related_name='education', on_delete=models.CASCADE)
     school = models.CharField(max_length=150, verbose_name=("school"))
     school_url = models.URLField('School URL')
     major = models.CharField(max_length=50, blank=True, )
@@ -130,7 +118,7 @@ class Education(models.Model):
 
 
 class Referee(models.Model):
-    user = models.ForeignKey(NormalUser, blank=True, related_name="referees", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, blank=True, related_name="referees", on_delete=models.CASCADE)
     full_name = models.CharField(max_length=50, verbose_name=("Full names"))
     position = models.CharField(max_length=50, verbose_name=("Position"))
     company = models.CharField(max_length=150)

@@ -17,7 +17,7 @@ class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=600)
     rating = models.IntegerField(choices=RATING_CHOICES)
-    likes = models.ManyToManyField(User, blank=True, related_name='likes')
+
 
     class Meta:
         ordering = ['-pub_date']

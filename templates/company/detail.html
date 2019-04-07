@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load pinax_likes_tags %}
 
 <title>{% block title %}  {{ company.name }}  | {{ block.super }} {% endblock %}</title>
 {% block lead %}
@@ -115,6 +116,7 @@
                 <h3 class="card-title">{{ review.user.username }}</h3></a>
               <h6 class="card-subtitle mb-2 text-muted">Follows by 13 People</h6>
               <h6 class="card-subtitle mb-2 text-muted">25 Reviews</h6>
+              {% likes_widget request.user review %}
             </div>
           </div>
         </div>

@@ -29,6 +29,7 @@ class Job(models.Model):
     remote = models.BooleanField(default=False, help_text="Select if this job allows 100% remote working")
     tags = TaggableManager()
 
+
     def __str__(self):
         return self.title
 

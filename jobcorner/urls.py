@@ -41,6 +41,9 @@ urlpatterns = [
                                                         email_template_name='accounts/password_reset_email.html',
                                                         subject_template_name='accounts/password_reset_subject.txt'),
          name='password_reset'),
+    path("likes/", include("pinax.likes.urls", namespace="pinax_likes")),
+    path('activity/', include('actstream.urls')),
+    path('messages/', include("pinax.messages.urls", namespace="pinax_messages")),
 
 ]
 

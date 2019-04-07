@@ -12,18 +12,6 @@
 
 
 {% block content %}
-<!--banner-->
-<div class="jumbotron">
-  <div class=" mx-auto">
-    <h5 class="lead"><strong> {{ title }} </strong></h5>
-    <hr class="my-4">
-    <ol class="breadcrumb ">
-      <li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
-      <li class="breadcrumb-item active"> </li>
-    </ol>
-  </div>
-</div>
-<!--endbanner-->
 
 <section id="content">
   <div class="container">
@@ -40,7 +28,7 @@
                 {{ form|crispy }}
                 {% endfor %}
               </fieldset>
-              <button class="btn btn-success">Add your company</button>
+              <button class="btn btn-success">Submit</button>
             </div>
           </form>
 

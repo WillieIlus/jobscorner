@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load pinax_likes_tags %}
+{% load pinax_messages_tags %}
+
+
 
 {% block title %}  {{ job.title }}  | {{ block.super }} {% endblock %}
 {% block lead %}
@@ -70,9 +74,17 @@
           {% endif %}
           <a class="btn btn-primary" href="#">Apply for this job now
           </a>
+          <a href="{% url 'pinax_messages:inbox' %}"><i class="fa fa-envelope"></i></a>
         </div>
       </div>
     </div>
+
+
+                      {% likes_widget request.user job %}
+
+
+
+
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">
@@ -108,3 +120,4 @@
 <!--end of simple card-->
 
 {% endblock content %}
+

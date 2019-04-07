@@ -1,16 +1,17 @@
-
-<br/>
-<br/>
-<br/>
-<div class="jumbotron">
-  <div class=" mx-auto">
-    <div class=" container text-center">
-      <h5 class="lead"><strong>{% block lead %} {% endblock %}</strong></h5>
-      <hr class="my-4">
-      <ol class="breadcrumb ">
-        <li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
-        {% block jumbotron %} {% endblock %}
-      </ol>
+<!-- Page Header Start -->
+<div class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="inner-header">
+          <h3>{% block lead %} {% endblock %}</h3>
+          <ol>
+            <li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
+            {% block jumbotron %} {% endblock %}
+          </ol>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<!-- Page Header End -->

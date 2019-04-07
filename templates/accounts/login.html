@@ -1,19 +1,17 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+<title>{% block title %} Login | {{ block.super }} {% endblock %}</title>
 
-
-<title>{% block title %}  Login  | {{ block.super }} {% endblock %}</title>
 {% block lead %}
-Login 
- {% endblock %}
+Login
+{% endblock %}
 {% block jumbotron %}
-      <li class="breadcrumb-item active">Login</li>
+ | Login
 {% endblock  %}
 
 
 {% block content %}
-
 {% if form.non_field_errors %}
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
   {% for error in form.non_field_errors %}
@@ -25,34 +23,28 @@ Login
 </div>
 {% endif %}
 
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title"> Login </h5>
-    </div>
-    <div class="modal-body">
-      <form method='POST' action='' enctype='multipart/form-data' novalidate>
-        {% csrf_token %}
-        <input type="hidden" name="next" value="{{ next }}">
-        {% crispy form %}
-      </form>
-      <hr/>
-      <div>
-        <p>
-          Don't have an account? <a href='{% url "accounts:signup" %}'>Sign in here</a>
-        </p>
-        <small>
-          <a href="{% url 'accounts:password_reset' %}" class="text-muted">Forgot your password?</a>
-        </small>
-      </div>
+<div class="container">
+<!-- log forms -->
+<!-- form 1 -->
+<div class="row">
+  <!-- Start login form  -->
+  <div class="col-lg-6 col-md-6 col-xs-12">
+    <div id="login-form">
+      <h3 class="log-title">Log In</h3>
+      <div class="form-group">
+                  <form class="login-form" method='POST' action='' enctype='multipart/form-data' novalidate>
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            {% crispy form %}
+          </form>
+          <div class="clearfix"></div>
+        </div>
+      <a href="{% url 'accounts:password_reset' %}" class="forgot-password">Forgot your Password? |</a>
+      <a href='{% url "accounts:signup" %}'>Don't have an account?</a>
     </div>
   </div>
 </div>
+  <!-- End login form 1 -->
+</div>
 
-{% endblock %}
-
-
-
-
-
-
+{% endblock content %}

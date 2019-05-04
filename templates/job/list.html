@@ -1,21 +1,65 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
-{% block title %} Job List | {{ block.super }} {% endblock %}
-{% block lead %}
-Job List
-{% endblock %}
-{% block jumbotron %} <li class="breadcrumb-item"> Job List </li>{% endblock  %}
-
+{% block title %}  Job List  | {{ block.super }} {% endblock %}
+{% block breadcrumb %}
+{% endblock  %}
 
 
 {% block content %}
 
+<!-- Headers Start -->
+<div id="headers">
+  <!-- Light header -->
+  <header id="header-style-1">
+    <div class="container">
+      <div class="header-caption">
+        <div class="row">
+          <div class="col-12 header-content">
+            <h3 class="header-title animated fadeInDown"><span class="text-primary">Search for the </span> - Best
+              Companies
+              listed here
+            </h3>
+            <h5 class="header-text animated fadeIn">Search here for job or <a href='{% url "company:new" %}'>add
+              yours here</a></h5>
+            <form method="get">
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-3 col-sm-12 p-0">
+                    {{ filter.form.title.label_tag }}
+                    {% render_field filter.form.title class="form-control" %}
+                  </div>
+                  <div class="col-md-3 col-sm-12 p-0">
+                    {{ filter.form.salary.label_tag }}
+                    {% render_field filter.form.salary class="form-control" %}
+                  </div>
+                  <div class="col-md-5 col-sm-12 p-0">
+                    {{ filter.form.description.label_tag }}
+                    {% render_field filter.form.description class="form-control" %}
+                  </div>
+                  <div class="mb-0 mt-2 col-md-1 col-sm-12 p-0">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-search"></i> Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+<!-- Headers End -->
+
+
 <!--simple card-->
 <div class="mt-5 container">
-  {% if job %}
-  {% for obj in job %}
+  {% if filter.qs %}
+  {% for obj in filter.qs %}
   <div class="card mx-auto col-md-12 mb-2 ">
     <div class="card-body">
       <div class="row">
@@ -28,15 +72,15 @@ Job List
         </div>
         <div class="col-md-9 col-sm-12">
           <div class="row">
-          <div class=" col-md-10 post-header-line">
-            <h4 class="card-title"><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> </h4>
-            <h6 class="card-subtitle mb-2 text-muted"> <span><i class="far fa-money-bill-alt"></i></span> KES: {{ obj.salary }}</h6>
-          </div>
-          <div class="col-md-2 pull-right">
-            <a class="card-link" href="{{ obj.get_absolute_url }}">
-              <button type="button" class="btn btn-primary">Apply</button>
-            </a>
-          </div>
+            <div class=" col-md-10 post-header-line">
+              <h4 class="card-title"><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></h4>
+              <h6 class="card-subtitle mb-2 text-muted"><span><i class="far fa-money-bill-alt"></i></span> KES: {{obj.salary }}</h6>
+            </div>
+            <div class="col-md-2 pull-right">
+              <a class="card-link" href="{{ obj.get_absolute_url }}">
+                <button type="button" class="btn btn-primary">Apply</button>
+              </a>
+            </div>
           </div>
           <hr/>
           <div class="col-md-12 ">
@@ -47,7 +91,7 @@ Job List
             {% endfor %}
             {% endif %}
             <div class="pull-right col-md-4 col-sm-12">
-              <i class="fas fa-map-marker-alt"></i> <a>  {{ obj.country.name }}, {{ obj.location.name }} </a>
+              <i class="fas fa-map-marker-alt"></i> <a> {{ obj.country.name }}, {{ obj.location.name }} </a>
               <i class="far fa-calendar-alt"></i> at Jan/17/2019
             </div>
           </div>
@@ -55,28 +99,20 @@ Job List
       </div>
     </div>
   </div>
-        {% endfor %}
+  {% endfor %}
   {% else %}
   <div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">currently no jobs</h5>
-    </div>
-    <div class="modal-body">
-      <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Job Vacancy</a>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">currently no jobs</h5>
+      </div>
+      <div class="modal-body">
+        <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Job Vacancy</a>
+      </div>
     </div>
   </div>
-</div>
   {% endif %}
 </div>
-
 <!--end of simple card-->
-
-
-
-
-
-
-
-
+<div class="mb-60"></div>
 {% endblock content %}

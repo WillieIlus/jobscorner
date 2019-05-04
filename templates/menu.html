@@ -11,11 +11,11 @@
           <span class="icon-menu"></span>
           <span class="icon-menu"></span>
         </button>
-        <a class="navbar-brand" href='{% url "company:list" %}'><img alt="" src="static/img/logo.png"></a>
+        <a class="navbar-brand" href='{% url "home" %}'><img alt="" src="static/img/job-logo.png"></a>
       </div>
       <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="navbar-nav mr-auto w-100 justify-content-end clearfix">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href='{% url "home" %}'>
               Home
             </a>
@@ -36,12 +36,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='{% url "accounts:users" %}'>
+            <a class="nav-link" href='{% url "reviews:list" %}'>
               Reviews
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href='{% url "accounts:users" %}'>
+            <a class="nav-link" href='{% url "resume:list" %}'>
               Users
             </a>
           </li>
@@ -92,12 +92,12 @@
         </a>
       </li>
       <li>
-        <a class="page-scroll" href='{% url "company:list" %}'>
+        <a class="page-scroll" href='{% url "reviews:list" %}'>
           Reviews
         </a>
       </li>
       <li>
-        <a class="page-scroll" href='{% url "accounts:users" %}'>
+        <a class="page-scroll" href='{% url "resume:list" %}'>
           User
         </a>
       </li>

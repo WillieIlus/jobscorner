@@ -1,22 +1,51 @@
 import datetime
 
+from company.models import Company
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import ListView, DetailView
 
-from company.models import Company
 from .forms import ReviewForm
 from .models import Review
 
 
 # from .suggestions import update_clusters
 
+class ReviewList(ListView):
+
+    queryset = Review.objects.order_by('-publish')[:9]
+    context_object_name = 'review'
+    template_name = 'reviews/list.html'
+
+
+class ReviewDetail(DetailView):
+    model = Review
+    context_object_name = 'review'
+    template_name = 'reviews/detail.html'
+
+
+def user_review_list(request, username=None):
+    if not username:
+        username = request.user.username
+    latest_review_list = Review.objects.filter(user_name=username).order_by('-publish')
+    context = {'latest_review_list':latest_review_list, 'username':username}
+    return render(request, 'reviews/user_review_list.html', context)
+
+
+class UserReviews(ListView):
+    context_object_name = 'review'
+    template_name = 'reviews/user_reviews.html'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Review.objects.filter(user=user).order_by('-publish')
+        # Question.objects.order_by('-pub_date')[:5]
+
 
 def review_list(request):
-    latest_review_list = Review.objects.order_by('-pub_date')[:9]
+    latest_review_list = Review.objects.order_by('-publish')[:9]
     context = {'latest_review_list': latest_review_list}
     return render(request, 'reviews/list.html', context)
 
@@ -48,33 +77,3 @@ def add_review(request, company_id):
         '''
         return HttpResponseRedirect(reverse('company:detail', args=(company.slug,)))
     return render(request, 'company/detail.html', {'company': company, 'form': form})
-
-
-def user_review_list(request, username=None):
-    if not username:
-        username = request.user.username
-    latest_review_list = Review.objects.filter(user=username).order_by('-pub_date')
-    context = {'latest_review_list': latest_review_list, 'username': username}
-    return render(request, 'reviews/user_review_list.html', context)
-
-
-#
-# @login_required
-# def like_review(request, company_id, review_id):
-#     company = get_object_or_404(Review, pk=company_id, id=review_id)
-#     review = get_object_or_404(Review, pk=request.POST.get('company_id'), id=request.POST.get('review_id'))
-#     review.likes.add(request.user)
-#     return HttpResponseRedirect(reverse('company:detail', args=(company.slug,)))
-
-
-class LikeReviewView(LoginRequiredMixin, CreateView):
-    # template_name = 'qa/create_comment.html'
-    model = Review
-    # fields = ['comment_text']
-    message = 'Thank you! your comment has been posted.'
-
-    def post(self, request, review_id):
-        # vote_target = get_object_or_404(self.model, pk=object_id)
-        review = get_object_or_404(Review, pk=request.POST.get('review_id'))
-        review.likes.add(request.user)
-        return HttpResponseRedirect(reverse('company:detail', args=(company.slug,)))

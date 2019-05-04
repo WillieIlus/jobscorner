@@ -1,7 +1,7 @@
 from django.urls import path
 
 from job.views import JobCreate, JobEdit
-from .views import CompanyCreate, CompanyDetail, CompanyList, CompanyEdit, CompanyDelete
+from .views import CompanyCreate, CompanyDetail, CompanyEdit, CompanyDelete, company_list_view, OpeningHourCreate
 
 app_name = 'company'
 
@@ -12,6 +12,8 @@ urlpatterns = [
     path('<slug:slug>/delete/', CompanyDelete.as_view(), name='delete'),
     path('<slug:slug>/new/', JobCreate.as_view(), name='new_job'),
     path('<slug:slug>/job/edit/', JobEdit.as_view(), name='edit_job'),
-    path('', CompanyList.as_view(), name='list'),
+    path('<slug:slug>/add/', OpeningHourCreate.as_view(), name='add_open_hours'),
+
+    path('', company_list_view, name='list'),
 
 ]

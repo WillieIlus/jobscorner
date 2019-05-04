@@ -4,11 +4,11 @@
 
 {% block title %}  {{ location.name }}  | {{ block.super }} {% endblock %}
 {% block lead %}
-{{ location.name }} 
- {% endblock %}
+{{ location.name }}
+{% endblock %}
 {% block jumbotron %}
-      <li class="breadcrumb-item"><a href='{% url "location:list" %}'>Location List</a></li>
-      <li class="breadcrumb-item active">{{ location.name }}</li>
+<li class="breadcrumb-item"><a href='{% url "location:list" %}'>Location List</a></li>
+<li class="breadcrumb-item active">{{ location.name }}</li>
 {% endblock  %}
 
 
@@ -33,4 +33,138 @@
     </div>
   </div>
 </div>
+
+
+{% if location.company.all %}
+<div class="container">
+  <hr/>
+  <h4 class="sub-title space-left">Companies at {{ location.name }}</h4>
+</div>
+{% for obj in location.company.all %}
+<!--simple card-->
+<div class="container">
+  <div class="card mx-auto col-md-12 mb-2 ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-4 col-sm-12">
+          {% if obj.logo %}
+          <a href="{{ obj.get_absolute_url }}">
+            <img class="d-block w-100" src='{{ obj.logo.url }}'/>
+          </a>
+          {% else %}
+          <a href="{{ obj.get_absolute_url }}">
+            <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+          </a>s
+          {% endif %}
+        </div>
+        <div class="pull-right col-md-8 col-sm-12">
+          <div class="col-md-12 post-header-line">
+            <h4 class="card-title">
+              <a href="{{ obj.get_absolute_url }}">
+                {{ obj.name }}
+              </a>
+              <span class="badge badge-primary">{{ obj.category.name }}</span>
+            </h4>{% if obj.website %}
+            <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.website}}"> Website </a></h6>
+            {% endif %}
+            <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
+            <hr/>
+            <span><i class="fas fa-star"></i>{{ obj.average_rating | floatformat }} rating </span> |
+            <span><i class="fas fa-comments"></i>{{ obj.review_set.count }} reviews</span> |
+            {% if obj.location %}
+            <span><i class="fas fa-map-marker-alt"></i>{{ obj.location.name }} | {{ obj.location.country.name }}</span>
+            {% endif %}
+            <div class="pull-right">
+              <a class="card-link" href="{{ obj.get_absolute_url }}">
+                <button type="button" class="btn btn-primary">Details</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end of simple card-->
+{% endfor %}
+{% else %}
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">currently no jobs</h5>
+    </div>
+    <div class="modal-body">
+      <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Your Company </a>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="mb-60"></div>
+
+<!--simple card-->
+<div class="container">
+  <hr/>
+  <h4 class="sub-title space-left">Jobs at {{ location.name }} </h4>
+</div>
+
+<div class="mt-5 container">
+  {% if location.job.all %}
+  {% for obj in location.job.all %}
+  <div class="card mx-auto col-md-12 mb-2 ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
+          {% if obj.company.logo %}
+          <img alt="..." class="d-block w-100" src='{{ obj.company.logo.url }}'>
+          {% else %}
+          <img alt="..." class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+          {% endif%}
+        </div>
+        <div class="col-md-9 col-sm-12">
+          <div class="row">
+            <div class=" col-md-10 post-header-line">
+              <h4 class="card-title"><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></h4>
+              <h6 class="card-subtitle mb-2 text-muted"><span><i class="far fa-money-bill-alt"></i></span> KES:
+                {{obj.salary }}</h6>
+            </div>
+            <div class="col-md-2 pull-right">
+              <a class="card-link" href="{{ obj.get_absolute_url }}">
+                <button type="button" class="btn btn-primary">Apply</button>
+              </a>
+            </div>
+          </div>
+          <hr/>
+          <div class="col-md-12 ">
+            <p class="card-text">{{ obj.description|truncatechars:250|linebreaks }}</p>
+            {% if obj.tags %}
+            {% for tags in obj.tags.all %}
+            <span class="badge badge-pill badge-secondary">{{ tags.name }}</span>
+            {% endfor %}
+            {% endif %}
+            <div class="pull-right col-md-4 col-sm-12">
+              <i class="fas fa-map-marker-alt"></i> <a> {{ obj.country.name }}, {{ obj.location.name }} </a>
+              <i class="far fa-calendar-alt"></i> at Jan/17/2019
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">currently no jobs</h5>
+      </div>
+      <div class="modal-body">
+        <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Job Vacancy</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!--end of simple card-->
+<div class="mb-60"></div>
 {% endblock content %}

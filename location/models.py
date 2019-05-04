@@ -16,6 +16,9 @@ class Location(models.Model):
     description = models.TextField(blank=True, null=True)
     country = models.ForeignKey(Country, related_name='country', on_delete=models.CASCADE)
 
+    publish = models.DateTimeField('date published', auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
     class Meta:
         verbose_name_plural = "locations"
         ordering = ['name']

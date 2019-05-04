@@ -1,16 +1,26 @@
 from builtins import super
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.checks import messages
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, DeleteView
-from extra_views import CreateWithInlinesView, InlineFormSetFactory, UpdateWithInlinesView
+from django.views.generic import DetailView, ListView, DeleteView, CreateView
+from extra_views import CreateWithInlinesView, InlineFormSetFactory, UpdateWithInlinesView, ModelFormSetView, \
+    FormSetView
 
-# from SRC.reviews.forms import ReviewForm
 from accounts.decorators import UserRequiredMixin
-from company.models import Company, CompanyImage
+from company.models import Company, CompanyImage, OpeningHours, ClosingRules
 # Category views
 from reviews.forms import ReviewForm
-from .forms import CompanyForm
+
+from .filters import CompanyFilter
+from .forms import CompanyForm, OpeningHoursForm, OpeningHoursFormset
+
+
+def company_list_view(request):
+    company_list = Company.objects.all()
+    company_filter = CompanyFilter(request.GET, queryset=company_list)
+    return render(request, 'company/list.html', {'filter': company_filter})
 
 
 class PhotosInline(InlineFormSetFactory):
@@ -60,13 +70,6 @@ class CompanyDelete(LoginRequiredMixin, UserRequiredMixin, DeleteView):
     template_name = 'delete.html'
 
 
-class CompanyList(ListView):
-    model = Company
-    context_object_name = 'company'
-    template_name = 'company/list.html'
-    paginate_by = 2
-
-
 class CompanyDetail(DetailView):
     model = Company
     template_name = 'company/detail.html'
@@ -76,10 +79,44 @@ class CompanyDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['company_image'] = CompanyImage.objects.filter(company=self.get_object())
-        # context['review'] = Review.objects.all().order_by('-pub_date')
+        context['open_hours'] = OpeningHours.objects.filter(company=self.get_object())
+        context['closing_rules'] = ClosingRules.objects.filter(company=self.get_object())
         context['form'] = ReviewForm()
+        context['related'] = self.object.tags.similar_objects()[:4]
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
+
+
+class OpeningHourCreate(LoginRequiredMixin, FormSetView):
+    model = OpeningHours
+    fields = ['weekday', 'from_hour', 'to_hour']
+    # form_class = OpeningHoursForm
+    template_name = 'company/formset.html'
+    # initial = [{'type': 'home'}, {'type', 'work'}]
+    factory_kwargs = {'extra': 1, 'max_num': 7,
+                      'can_order': False, 'can_delete': True}
+
+    def form_valid(self, form):
+        form = form.save(Commit=False)
+        form.company = get_object_or_404(Company, slug=self.kwargs['slug'])
+        # form.instance.company = get_object_or_404(Company, pk=self.kwargs['company_id'])
+
+        form.save()
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        """
+        If the form is invalid, re-render the context data with the
+        data-filled form and errors.
+        """
+        print('the is an error in your form')
+        messages.warning(self.request, 'There was an error in this form')
+        return self.render_to_response(self.get_context_data(form=form))
+
+# class ItemFormSetView():
+# model = Item
+# fields = ['name', 'sku']
+# template_name = 'item_formset.html'

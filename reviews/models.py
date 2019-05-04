@@ -1,7 +1,6 @@
-from django.db import models
-
 from accounts.models import User
 from company.models import Company
+from django.db import models
 
 
 class Review(models.Model):
@@ -13,14 +12,16 @@ class Review(models.Model):
         (5, '5'),
     )
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
-    pub_date = models.DateTimeField('date published')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=600)
     rating = models.IntegerField(choices=RATING_CHOICES)
 
+    publish = models.DateTimeField('date published', auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     class Meta:
-        ordering = ['-pub_date']
+        unique_together = ('company', 'user')
+        ordering = ['-publish']
 
 
 class Cluster(models.Model):

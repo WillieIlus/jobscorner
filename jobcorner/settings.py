@@ -54,7 +54,6 @@ INSTALLED_APPS = [
     "pinax.blog",
     "pinax.images",
     "pinax.notifications",
-    'actstream',
 
     'accounts',
     'category',
@@ -64,6 +63,10 @@ INSTALLED_APPS = [
     'job',
     'location',
     'reviews',
+    'resume',
+
+    'actstream',
+
 ]
 SITE_ID = 1
 
@@ -161,23 +164,23 @@ EMAIL_PORT = 587
 PINAX_LIKES_LIKABLE_MODELS = {
     "accounts.User": {
         "like_text_on": "unlike",
-        "css_class_on": "fa-heart",
+        "css_class_on": "fa-heart btn std-btn btn-sm btn-warning",
         "like_text_off": "like",
-        "css_class_off": "fa-heart-o",
+        "css_class_off": "fa-heart-o btn std-btn btn-sm btn-filled",
         "allowed": lambda user, obj: True
     },
     "job.Job": {
         "like_text_on": "unlike",
-        "css_class_on": "fa-heart",
+        "css_class_on": "fa-heart btn std-btn btn-sm btn-warning",
         "like_text_off": "like",
-        "css_class_off": "fa-heart-o",
+        "css_class_off": "fa-heart-o btn std-btn btn-sm btn-filled",
         "allowed": lambda user, obj: True
     },
     "reviews.Review": {
         "like_text_on": "unlike",
-        "css_class_on": "fa-heart",
+        "css_class_on": "fa-heart btn std-btn btn-sm btn-warning",
         "like_text_off": "like",
-        "css_class_off": "fa-heart-o",
+        "css_class_off": "fa-heart-o btn std-btn btn-sm btn-filled",
         "allowed": lambda user, obj: True
     },
 }
@@ -186,6 +189,15 @@ AUTHENTICATION_BACKENDS = [
     # other backends
     "pinax.likes.auth_backends.CanLikeBackend",
 ]
+
+ACTSTREAM_SETTINGS = {
+    'MANAGER': 'accounts.managers.MyActionManager',
+    'FETCH_RELATIONS': True,
+    'USE_PREFETCH': True,
+    'USE_JSONFIELD': True,
+    'GFK_FETCH_DEPTH': 1,
+}
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h2>Latest reviews</h2>
+{% endblock %}
+
+{% block content %}
+{% if review %}
+<div class="row">
+    {% for review in review %}
+    <div class="col-xs-6 col-lg-4">
+        <h4><a href="{% url 'reviews:detail' review.pk %}">
+        {{ review.company.name }}
+        </a></h4>
+        <h6>Rated {{ review.rating }} of 5 by <a href="" >{{ review.user.username }}</a></h6>
+        <p>{{ review.comment }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No reviews are available.</p>
+{% endif %}
+{% endblock %}
+
+{% comment %}
+<a href="{% url 'reviews:detail' review.id %}"></a>
+{% endcomment %}

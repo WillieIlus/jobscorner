@@ -31,6 +31,7 @@ urlpatterns = [
     path('country/', include('country.urls', namespace='country')),
     path('location/', include('location.urls', namespace='location')),
     path('job/', include('job.urls', namespace='job')),
+    path('resume/', include('resume.urls', namespace='resume')),
     path('reviews/', include('reviews.urls', namespace='reviews')),
     path('pages/', include('django.contrib.flatpages.urls')),
     # path('search/', search, name='search'),

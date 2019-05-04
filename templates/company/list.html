@@ -1,18 +1,59 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
 
 {% block title %}  Company List  | {{ block.super }} {% endblock %}
-{% block lead %}
-{{ job.title }}
-{% endblock %}
-{% block jumbotron %}
-<li class="breadcrumb-item active"> Company List</li>
-<li class="breadcrumb-item active"><a href='{% url "company:new" %}'> New</a></li>
+{% block breadcrumb %}
 {% endblock  %}
 
+
 {% block content %}
-{% if company %}
-{% for obj in company %}
+
+<!-- Headers Start -->
+<div id="headers">
+  <!-- Light header -->
+  <header id="header-style-1">
+    <div class="container">
+      <div class="header-caption">
+        <div class="row">
+          <div class="col-12 header-content">
+            <h3 class="header-title animated fadeInDown"><span class="text-primary">Companies</span> - Best Companies
+              are listed here
+            </h3>
+            <h5 class="header-text animated fadeIn">Search here for company or <a href='{% url "company:new" %}'>add
+              yours here</a></h5>
+            <form method="get">
+              <div class="col-md-8 col-sm-12">
+                <div class="row">
+                  <div class="col-md-5 col-sm-12 p-0">
+                    {{ filter.form.name.label_tag }}
+                    {% render_field filter.form.name class="form-control" %}
+                  </div>
+                  <div class="col-md-6 col-sm-12 p-0">
+                    {{ filter.form.description.label_tag }}
+                    {% render_field filter.form.description class="form-control" %}
+                  </div>
+                  <div class="mb-0 mt-2 col-md-1 col-sm-12 p-0">
+                    <button class="btn btn-primary" type="submit">
+                      <i class="fas fa-search"></i> Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</div>
+<!-- Headers End -->
+
+<div class="mb-60"></div>
+
+{% if filter.qs %}
+{% for obj in filter.qs %}
 <!--simple card-->
 <div class="container">
   <div class="card mx-auto col-md-12 mb-2 ">
@@ -20,27 +61,33 @@
       <div class="row">
         <div class="col-md-4 col-sm-12">
           {% if obj.logo %}
-          <img class="d-block w-100" src='{{ obj.logo.url }}'/>
+          <a href="{{ obj.get_absolute_url }}">
+            <img class="d-block w-100" src='{{ obj.logo.url }}'/>
+          </a>
           {% else %}
-          <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+          <a href="{{ obj.get_absolute_url }}">
+            <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+          </a>s
           {% endif %}
         </div>
         <div class="pull-right col-md-8 col-sm-12">
           <div class="col-md-12 post-header-line">
-            <h4 class="card-title">{{ obj.name }}<span class="badge badge-primary">{{ obj.category.name }}</span>
+            <h4 class="card-title">
+              <a href="{{ obj.get_absolute_url }}">
+                {{ obj.name }}
+              </a>
+              <span class="badge badge-primary">{{ obj.category.name }}</span>
             </h4>{% if obj.website %}
             <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.website}}"> Website </a></h6>
             {% endif %}
             <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
             <hr/>
-            <span><i class="fas fa-star"></i> 4.5 rating</span> |
-            <span><i class="fas fa-comments"></i> 7 reviews</span> |
+            <span><i class="fas fa-star"></i>{{ obj.average_rating | floatformat }} rating </span> |
+            <span><i class="fas fa-comments"></i>{{ obj.review_set.count }} reviews</span> |
             {% if obj.location %}
             <span><i class="fas fa-map-marker-alt"></i>{{ obj.location.name }} | {{ obj.location.country.name }}</span>
             {% endif %}
-            <hr/>
             <div class="pull-right">
-              <a href="" class="text-primary"> <i class="fas fa-heart"></i></a> 20 people like this
               <a class="card-link" href="{{ obj.get_absolute_url }}">
                 <button type="button" class="btn btn-primary">Details</button>
               </a>
@@ -65,4 +112,6 @@
   </div>
 </div>
 {% endif %}
+
+<div class="mb-60"></div>
 {% endblock content %}

@@ -14,8 +14,8 @@
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis veritatis eius porro modi hic. Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </p>
             <div class="social-footer">
-              <a href="#"><i class="fa fa-facebook icon-round"></i></a>
-              <a href="#"><i class="fa fa-twitter icon-round"></i></a>
+              <a href="web.facebook.com/jobcycle254/"><i class="fa fa-facebook icon-round"></i></a>
+              <a href="www.twitter.com/jobcycle1"><i class="fa fa-twitter icon-round"></i></a>
               <a href="#"><i class="fa fa-linkedin icon-round"></i></a>
               <a href="#"><i class="fa fa-google-plus icon-round"></i></a>
             </div>
@@ -28,11 +28,10 @@
               Links
             </h3>
             <ul class="menu">
-              <li><a href="#">About Us</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Works</a></li>
-              <li><a href="#">Pricing</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href='{% url "company:list" %}'>About Us</a></li>
+              <li><a href='{% url "country:list" %}'>Countries</a></li>
+              <li><a href='{% url "location:list" %}'>Location</a></li>
+              <li><a href='{% url "company:list" %}'>Contact</a></li>
             </ul>
           </div>
           <!-- Footer Widget Ends -->

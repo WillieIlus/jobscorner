@@ -1,63 +1,113 @@
 {% extends 'base.html' %}
-
+{% load accounts_tags %}
+{% load company_tags %}
+{% load job_tags %}
+{% load job_tags %}
+{% load category_tags %}
+{% load review_tags %}
+{% load pinax_likes_tags %}
 {% load staticfiles %}
-
 {% block breadcrumb %}
 {% endblock  %}
-
-
 {% block content %}
-
 {% include "header.html" %}
 
 <div class="container">
   <div class="row">
     <div class="col-12">
       <div class="page-header-title">
-        <h2 class="heading-title text-center">Cards</h2>
+        <h2 class="heading-title text-center">Categories</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-wrap">
+    <div class="row">
+      {% show_categories 4 %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="page-header-title">
+        <h2 class="heading-title text-center"> Latest Companies </h2>
       </div>
     </div>
   </div>
   <div class="row">
-    <!-- card -->
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="img/card/img-05.jpg" alt="">
-        <div class="card-block">
-          <h3 class="card-title">Item Title</h3>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-          <a href="#" class="btn card-btn btn-common">Learn More</a>
-        </div>
-      </div>
-    </div>
-    <!-- End card -->
-
-    <!-- card -->
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="img/card/img-06.jpg" alt="">
-        <div class="card-block text-center">
-          <h3 class="card-title">Item Title</h3>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-          <a href="#" class="btn card-btn btn-common">Learn More</a>
-        </div>
-      </div>
-    </div>
-    <!-- End card -->
-
-    <!-- card -->
-    <div class="col-md-4">
-      <div class="card">
-        <img class="card-img-top" src="img/card/img-07.jpg" alt="">
-        <div class="card-block text-right">
-          <h3 class="card-title">Item Title</h3>
-          <p class="card-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
-          <a href="#" class="btn card-btn btn-common">Learn More</a>
-        </div>
-      </div>
-    </div>
-    <!-- End card -->
+    {% show_latest_companies 4 %}
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="page-header-title">
+        <h2 class="heading-title text-center"> Latest Jobs </h2>
+      </div>
+    </div>
+  </div>
+  {% show_latest_jobs 8%}
 </div>
 
+<!-- facts Section Start -->
+<div id="counter">
+  <div class="container">
+    <div class="row count-to-sec">
+      <div class="col-lg-3 col-md-6 col-xs-12 count-one">
+        <span class="icon"><i class="fa fa-download"> </i></span>
+        <h3 class="timer count-value" data-speed="1000" data-to="{% total_user %}">{% total_user %}</h3>
+        <hr class="width25-divider">
+        <small class="count-title">users</small>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-xs-12 count-one">
+        <span class="icon"><i class="fa fa-download"> </i></span>
+        <h3 class="timer count-value" data-to="{% total_reviews %}" data-speed="1000">{% total_reviews %}</h3>
+        <hr class="width25-divider">
+        <small class="count-title">Reviews</small>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-xs-12 count-one">
+        <span class="icon"><i class="fa fa-desktop"> </i></span>
+        <h3 class="timer count-value" data-speed="1000" data-to="{% total_companies %}">{% total_companies %}</h3>
+        <hr class="width25-divider">
+        <small class="count-title">Companies</small>
+      </div>
+
+      <div class="col-lg-3 col-md-6 col-xs-12 count-one">
+        <span class="icon"><i class="fa fa-coffee"> </i></span>
+        <h3 class="timer count-value" data-speed="1000" data-to="{% total_jobs %}">{% total_jobs %} </h3>
+        <hr class="width25-divider">
+        <small class="count-title">Jobs</small>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- facts Section End -->
+<div class="mb-60">&nbsp;</div>
+
+{% show_latest_profile 3 %}
+
+{% show_latest_reviews 11 %}
+
+
+
+
+
+
+<!--call to action-->
+    <section class="cta-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="cta-area">
+              <div class="cta-content text-center">
+                <h2>Super Powerful UI Kit with hundereds <br> of amazing designed components.</h2>
+                <a href="#" class="btn btn-common"> Sign Up Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+<!--end of call to action-->
 {% endblock %}

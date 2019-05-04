@@ -1,17 +1,15 @@
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
-from django.views.decorators.http import require_POST
-from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
-
 # Job views
 from accounts.decorators import UserRequiredMixin
 from company.models import Company
-from job.forms import JobForm
-from job.models import Job
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
+from .forms import JobForm
+from .models import Job
+
+from .filters import JobFilter
 
 
 class JobCreate(LoginRequiredMixin, CreateView):
@@ -30,7 +28,7 @@ class JobCreate(LoginRequiredMixin, CreateView):
         If the form is invalid, re-render the context data with the
         data-filled form and errors.
         """
-        print('the is an error in your form' )
+        print('the is an error in your form')
         messages.warning(self.request, 'There was an error in this form')
         return self.render_to_response(self.get_context_data(form=form))
 
@@ -42,11 +40,6 @@ class JobEdit(LoginRequiredMixin, UserRequiredMixin, UpdateView):
     model = Job
     form_class = JobForm
     template_name = 'form.html'
-
-    # def get_form(self, *args, **kwargs):
-    #     form = super().get_form(*args, **kwargs)
-    #     form.fields['company'].queryset = Company.objects.filter(user=self.request.user)
-    #     return form
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -72,31 +65,25 @@ class JobList(ListView):
     template_name = 'job/list.html'
 
 
+def job_list_view(request):
+    job_list = Job.objects.all()
+    job_filter = JobFilter(request.GET, queryset=job_list)
+    return render(request, 'job/list.html', {'filter': job_filter})
+
+
 class JobDetail(DetailView):
     model = Job
     context_object_name = 'job'
     template_name = 'job/detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['related'] = self.object.tags.similar_objects()[:4]
+        return context
+
 
 
 class JobDelete(LoginRequiredMixin, UserRequiredMixin, DeleteView):
     model = Job
     success_url = reverse_lazy('job_list')
     template_name = 'delete.html'
-
-
-@login_required
-@require_POST
-def job_like(request):
-    job_id = request.POST.get('slug')
-    action = request.POST.get('action')
-    if job_id and action:
-        try:
-            job = Job.objects.get(id=job_id)
-            if action == 'like':
-                job.users_like.add(request.user)
-            else:
-                job.users_like.remove(request.user)
-            return JsonResponse({'status':'ok'})
-        except:
-            pass
-    return JsonResponse({'status':'ko'})

@@ -14,6 +14,9 @@ class Country(models.Model):
     description = models.TextField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
 
+    publish = models.DateTimeField('date published', auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
     objects = models.Manager()
 
     class Meta:

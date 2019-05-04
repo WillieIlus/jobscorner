@@ -1,0 +1,12 @@
+{% for obj in categories %}
+<!-- Start featured -->
+<div class="col-lg-4 col-md-6 co-xs-12">
+  <div class="featured-box">
+    <div class="featured-content">
+      <h4><a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a></h4>
+      <p>{{ obj.description|truncatechars:100 }}</p>
+    </div>
+  </div>
+</div>
+<!-- End featured -->
+{% endfor %}

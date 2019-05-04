@@ -1,0 +1,18 @@
+{% for obj in latest_companies %}
+<!-- card -->
+<div class="col-md-3">
+  <div class="card">
+    {% if obj.logo %}
+    <img alt="" class="card-img-top" src='{{ obj.logo.url }}'>
+    {% else %}
+    <img alt="" class="card-img-top" src=''>
+    {% endif %}
+    <div class="card-block">
+      <h3 class="card-title">{{ obj.name }}</h3>
+      <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
+      <a class="btn card-btn btn-common" href="{{ obj.get_absolute_url }}">Learn More</a>
+    </div>
+  </div>
+</div>
+<!-- End card -->
+{% endfor %}

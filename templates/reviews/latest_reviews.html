@@ -1,0 +1,32 @@
+<!-- Page Wrapper Start -->
+<div class="wrapper">
+  <!-- Content Area Start -->
+  <div id="content">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="page-header-title">
+            <h2 class="heading-title text-center">Features</h2>
+          </div>
+          {% for obj in latest_reviews %}
+          <!-- Start Features Section -->
+          <div class="row">
+            <!-- Start featured -->
+            <div class="col-lg-4 col-md-6 co-xs-12">
+              <div class="featured-box-item">
+                <div class="featured-content">
+                  <h4>{{ obj.user.username }}</h4>
+                  <h5 class="card-title">Rated {{ obj.company.name }}</h5>
+                  <h4 class="card-title">{{ obj.rating }} of 5</h4>
+                  <p>{{ obj.comment|truncatechars:100 }}</p>
+                </div>
+              </div>
+            </div>
+            <!-- End featured -->
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

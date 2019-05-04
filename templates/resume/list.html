@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load accounts_tags %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+
+{% block title %}   Account List   | {{ block.super }} {% endblock %}
+{% block breadcrumb %}
+{% endblock  %}
+{% block content %}
+
+
+<!--table list-->
+<div class="container">
+  {% if profile %}
+  {% for obj in profile %}
+  <div class="card col-md-10">
+    <div class="row card-body">
+      <div class="col-md-2 ">
+        <a href="#" class="pull-left ">
+          <img src='{% static "img/chair-daylight-desk-1181251.jpg" %}' class="d-block w-100 img-responsive">
+        </a>
+      </div>
+      <div class="col-md-10">
+        <h4 class="title">
+          <a href="{{ obj.get_absolute_url }}">
+          {{ obj.user.get_full_name }}
+          </a>
+        </h4>
+        <span>
+                <p class="summary"> {{ obj.bio|truncatechars:100  }}...</p></span>
+        <div>
+          <hr/>
+          <a href="{{ obj.get_absolute_url }}" class="card-link btn btn-primary pull-right">Details</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">currently no Profile</h5>
+      </div>
+      <div class="modal-body">
+        <a href="{% url 'resume:new' %}" class="btn btn-success btn-lg" role="button">Add Profile</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!--end table list-->
+
+{% if users.has_other_pages %}
+  <ul class="pagination">
+    {% if users.has_previous %}
+      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in users.paginator.page_range %}
+      {% if users.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if users.has_next %}
+      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+{% endblock %}

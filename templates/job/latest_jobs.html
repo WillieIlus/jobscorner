@@ -1,0 +1,22 @@
+<div class="table-responsive mtb">
+  <table class="table table-bordered table-2 table-striped">
+    <thead>
+    <tr>
+      <th>Title</th>
+      <th>Company</th>
+      <th>Location</th>
+      <th>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+{% for obj in latest_jobs %}
+    <tr>
+      <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
+      <td >{{ obj.company.name }} </td>
+      <td > {{ obj.location.country.name }}, {{ obj.location.name }} </td>
+      <td>{{ obj.publish|timesince }} ago </td>
+    </tr>
+   {% endfor %}
+    </tbody>
+  </table>
+</div>

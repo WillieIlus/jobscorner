@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="row">
+{% for obj in latest_jobs %}
+    <div class="col-md-4 col-sm-12">
+      <div class="card">
+      <div class="card-2">
+        <div class="card-block">
+          <h3 class="card-title">{{ obj.title }}</h3>
+          <div class="meta">
+            <a>{{ obj.company.name }} </a>
+          </div>
+          <div class="description">
+            {{ obj.description|truncatechars:100 }}
+          </div>
+        </div>
+        <div class="extra">
+          <span class="right">
+            {{ obj.publish|timesince }} ago
+          </span>
+          <span>
+            <i class="fa fa-user"></i>
+            {{ job.opening }}
+          </span>
+        </div>
+      </div>
+    </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>

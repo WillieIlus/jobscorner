@@ -74,7 +74,7 @@ class EducationCreate(ProfileCreate):
     model = Education
     form_class = EducationForm
 
-
+@method_decorator([login_required, normal_user_required], name='dispatch')
 class ProfileCreateView(CreateView):
     model = Profile
     form_class = ProfileForm

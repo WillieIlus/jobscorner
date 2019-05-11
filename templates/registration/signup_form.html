@@ -38,19 +38,21 @@ $("#id_email").change(function () {
 </script>
 {% endblock %}
 
+
+{% block title %} Signup Form | {{ block.super }} {% endblock %}
+{% block lead %}
+Signup Form
+{% endblock %}
+
+{% block jumbotron %}
+<a class="btn btn-common">
+ Sign Up </a>
+{% endblock  %}
+
+
+
 {% block content %}
-<!--banner-->
-<div class="jumbotron">
-  <div class=" mx-auto">
-    <h5 class="lead"><strong> Signup </strong></h5>
-    <hr class="my-4">
-    <ol class="breadcrumb ">
-      <li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
-      <li class="breadcrumb-item active"> Signup</li>
-    </ol>
-  </div>
-</div>
-<!--endbanner-->
+
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">

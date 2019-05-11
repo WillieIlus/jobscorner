@@ -1,59 +1,22 @@
-<header id="header-wrap">
-  <!-- sliders -->
-  <div id="sliders">
-    <div class="full-width">
-      <!-- light slider -->
-      <div class="carousel slide" id="light-slider">
-        <div id="carousel-area">
-          <div class="carousel slide" data-ride="carousel" id="carousel-slider">
-            <ol class="carousel-indicators">
-              <li class="active" data-slide-to="0" data-target="#carousel-slider"></li>
-              <li data-slide-to="1" data-target="#carousel-slider"></li>
-              <li data-slide-to="2" data-target="#carousel-slider"></li>
-            </ol>
-            <div class="carousel-inner" role="listbox">
-              <div class="carousel-item active">
-                <img alt="" src="static/img/slider/bg-1.jpg">
-                <div class="carousel-caption">
-                  <h3 class="slide-title animated fadeInDown">Find the best jobs for your life</h3>
-                  <h5 class="slide-text animated fadeIn"> jobs are waiting to Kickstart your career!</h5>
-                  <a class="btn btn-lg btn-common animated fadeInUp" href="{% url 'accounts:normal_user_signup' %}">Sign
-                    Up</a>
-                  <a class="btn btn-lg btn-border animated fadeInUp" href='{% url "job:list" %}'>Find More</a>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img alt="" src="static/img/slider/bg-2.jpg">
-                <div class="carousel-caption">
-                  <h3 class="slide-title animated fadeInDown"> Write a Review and help others </h3>
-                  <h5 class="slide-text animated fadeIn">Restaurants, retails, barbershops, Groceries and the list is
-                    endlesss</h5>
-                  <a class="btn btn-lg btn-common animated fadeInUp" href='{% url "company:list" %}'>Write a Review</a>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <img alt="" src="static/img/slider/bg-3.jpg">
-                <div class="carousel-caption">
-                  <h3 class="slide-title animated fadeInDown">Add your Biz, gain reviews and increase clients </h3>
-                  <h5 class="slide-text animated fadeIn">Post Job vacancies after adding your company all free.</h5>
-                  <a class="btn btn-lg btn-border animated fadeInUp" href="{% url 'accounts:employer_signup' %}">Signup
-                    as Employer</a>
-                  <a class="btn btn-lg btn-common animated fadeInUp" href='{% url "company:new" %}'>Add Company </a>
-                </div>
+
+      <div class="header-style-3">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <figure>
+                <img src="static/img/bg/business-woman.png" alt="">
+                <!--<img src="static/img/bg/hero-2.png" alt="">-->
+              </figure>
+            </div>
+            <div class="col-xs-12 col-sm-6">
+              <div class="hero-content-v2">
+                <h3 class="slide-title animated fadeInDown">are a business person? <strong>Add your Company and increase your client</strong></h3>
+                <p>
+                  sign up, add company, help people to know you better and add Job vacancies for free!
+                </p>
+				                  <a class="btn btn-lg btn-border animated fadeInUp" href="{% url 'accounts:employer_signup' %}">Business Sign Up</a>
               </div>
             </div>
-            <a class="carousel-control-prev" data-slide="prev" href="#carousel-slider" role="button">
-              <i class="fa fa-chevron-left"></i>
-            </a>
-            <a class="carousel-control-next" data-slide="next" href="#carousel-slider" role="button">
-              <i class="fa fa-chevron-right"></i>
-            </a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- End sliders -->
-
-</header>
-<!-- Header Area wrapper End -->

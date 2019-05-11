@@ -5,15 +5,17 @@
 {% load pinax_likes_tags %}
 {% load pinax_messages_tags %}
 
-
 {% block title %}  {{ job.title }}  | {{ block.super }} {% endblock %}
 {% block lead %}
 {{ job.title }}
 {% endblock %}
 {% block jumbotron %}
-<li class="breadcrumb-item"><a href='{% url "job:list" %}'>Job List</a></li>
-<li class="breadcrumb-item active">{{ job.title }}</li></li>
+<a class="btn btn-common" href='{% url "job:list" %}'>Job List
+</a>
+<a class="btn btn-common active">{{ job.title }}
+</a>
 {% endblock  %}
+
 
 {% block content %}
 

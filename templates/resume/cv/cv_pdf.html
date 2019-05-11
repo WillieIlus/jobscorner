@@ -29,120 +29,122 @@
   <!--fonts ===========================================-->
   {% block stylesheet %}{% endblock %}
 </head>
-
 {% block content %}
-<!-- About Section Start -->
-<section id="about" class="section-padding">
+
+<div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <div class="row">
-      {% if user.profile.thumbnail %}
-      <div class="col-md-4 col-sm-12 col-xs-12">
-        <div class="img-thumb wow fadeInLeft" data-wow-delay="0.3s">
-          <img class="img-fluid" src='{{ user.profile.thumbnail.url }}' alt="">
-        </div>
-      </div>
-      {% endif %}
-      <div class="col-md-8 col-sm-12 col-xs-12">
-        <div class="profile-wrapper wow fadeInRight" data-wow-delay="0.3s">
-          <h3>Hi Guys!</h3>
-          <p>{{ user.profile.bio }}</p>
-          <div class="about-profile">
-            <ul class="admin-profile">
-              <li><span class="pro-title"> Name : </span> <span class="pro-detail">{{ user.get_full_name }}</span></li>
-              <li><span class="pro-title"> Title : </span> <span class="pro-detail">{{ user.profile.title }} </span></li>
-              <li><span class="pro-title"> Birthdate :  </span> <span class="pro-detail">
-                {{ user.profile.birth_date }}</span></li>
-              <li><span class="pro-title"> Country : </span> <span class="pro-detail">{{ user.profile.location.country.name }}</span>
-              </li>
-              <li><span class="pro-title"> Location : </span> <span class="pro-detail">{{ user.profile.location }}</span>
-              </li>
-              <li><span class="pro-title"> e-mail : </span> <span class="pro-detail">{{ user.email }}</span></li>
-              <li><span class="pro-title"> Phone : </span> <span class="pro-detail">{{ user.profile.phone }}</span></li>
-            </ul>
+    &nbsp;
+    <!-- About Section Start -->
+    <section id="about" class="section-padding">
+      <div class="container">
+        {% if profile %}
+        <div class="row">
+          {% if profile.thumbnail %}
+          <div class="col-md-4 col-sm-12">
+            <div class="img-thumb wow fadeInLeft" data-wow-delay="0.3s">
+              <img class="img-fluid" src='{{ profile.thumbnail.url }}' alt="">
+            </div>
+          </div>
+          {% endif %}
+          <div class="col-md-8 col-sm-12 col-xs-12">
+            <div class="profile-wrapper wow fadeInRight" data-wow-delay="0.3s">
+              <h3>My Profile</h3>
+              <p>{{ profile.bio }}</p>
+              <div class="about-profile">
+                <ul class="admin-profile">
+                  <li><span class="pro-title"> Name </span> <span
+                          class="pro-detail">{{ profile.user.get_full_name }}</span>
+                  </li>
+                  <li><span class="pro-title"> Birthdate:  </span> <span
+                          class="pro-detail">{{ profile.birth_date }}</span></li>
+                  <li><span class="pro-title"> Country </span> <span class="pro-detail">{{ profile.location.country.name }}</span>
+                  </li>
+                  <li><span class="pro-title"> Location </span> <span
+                          class="pro-detail">{{ profile.location }}</span>
+                  </li>
+                  <li><span class="pro-title"> e-mail </span> <span class="pro-detail">{{ profile.user.email }}</span>
+                  </li>
+                  <li><span class="pro-title"> Phone </span> <span class="pro-detail">{{ profile.phone }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
-</section>
-<!-- About Section End -->
-
-<!-- Resume Section Start -->
-<div id="resume" class="section-padding">
-  <div class="container">
-    <div class="row">
-      <div class="card col-lg-6 col-md-12 col-sm-12">
-        <div class="header-title animated fadeInUp" data-wow-delay="0.3s">
-          <ul class="timeline">
-            <li>
-              <i class="icon-graduation"></i>
-              <h2 class="title">Skills</h2>
-            </li>
-
-            <br/>&nbsp;
-            <hr/>
-            {% for obj in user.skills.all %}
-            <li>
-              <div class="card-block">
-                <h3 class="card-title">{{ obj.name }}</h3>
-                <span>{{ obj.level }}</span>
-                <p class="description">{{ obj.description }}</p>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-      <div class="card-2 col-lg-6 col-md-12 col-sm-12">
-        <div class="header-title animated fadeInUp" data-wow-delay="0.6s">
-          <ul class="timeline">
-            <li>
-              <i class="icon-briefcase"></i>
-              <h2 class="timelin-title">Experience</h2>
-            </li>
-            <br/>&nbsp;
-            <hr/>
-            {% for obj in user.experience.all %}
-            <li>
-              <div class="card-block">
-                <h3 class="card-title">{{ obj.role }} - {{ obj.company }}</h3>
-                <span>{{ obj.start_date }}- {{ completion_date }}</span>
-                <p class="description">{{ obj.description }}</p>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="card-2 col-md-12 col-sm-12">
-        <div class="header-title animated fadeInUp" data-wow-delay="0.3s">
-          <ul class="timeline">
-            <li>
-              <i class="icon-graduation"></i>
-              <h2 class="timelin-title">Education</h2>
-            </li>
-            <br/>&nbsp;
-            <hr/>
-            {% for obj in user.education.all %}
-            <li>
-              <div class="card-block">
-                <h3 class="card-title">{{ obj.major }} - {{ obj.school }}</h3>
-                <span>{{ obj.start_date }}- {{ completion_date }}</span>
-                <p class="description">{{ obj.summary }}</p>
-              </div>
-            </li>
-            {% endfor %}
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Resume Section End -->
 </div>
+    {% endif %}
+    <!-- About Section End -->
 
-<div class="mb-60"></div>
+    <!-- Resume Section Start -->
+    <div id="resume" class="section-padding">
+      <div class="container">
+        <div class="row">
+          <div class="card-2 col-lg-6 col-md-12 col-sm-12">
+            <div class="header-title animated fadeInUp" data-wow-delay="0.3s">
+              <ul class="timeline">
+                <div class="row">
+                  <i class="icon-graduation"></i>
+                  <h2 class="title">Skills</h2>
+                </div>
+                {% for obj in profile.skills.all %}
+                <li>
+                  <div class="card-block">
+                    <h3 class="card-title">{{ obj.name }}</h3>
+                    <span>{{ obj.level }}</span>
+                    <p class="description">{{ obj.description }}</p>
+                  </div>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+          <div class="card-2 col-lg-6 col-md-12 col-sm-12">
+            <div class="header-title animated fadeInUp" data-wow-delay="0.6s">
+              <ul class="timeline">
+                <li>
+                  <i class="icon-briefcase"></i>
+                  <h2 class="timelin-title">Experience</h2>
+                </li>
+                {% for obj in profile.experience.all %}
+                <li>
+                  <div class="card-block">
+                    <h3 class="card-title">{{ obj.role }} - {{ obj.company }}</h3>
+                    <span>{{ obj.start_date }}- {{ completion_date }}</span>
+                    <p class="description">{{ obj.description }}</p>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="card-2 col-md-12 col-sm-12">
+            <div class="header-title animated fadeInUp" data-wow-delay="0.3s">
+              <ul class="timeline">
+                <li>
+                  <i class="icon-graduation"></i>
+                  <h2 class="timelin-title">Education</h2>
+                </li>
+                {% for obj in profile.education.all %}
+                <li>
+                  <div class="card-block">
+                    <h3 class="card-title">{{ obj.major }} - {{ obj.school }}</h3>
+                    <span>{{ obj.start_date }}- {{ completion_date }}</span>
+                    <p class="description">{{ obj.summary }}</p>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Resume Section End -->
+    </div>
 
-{% endblock %}
+    <div class="mb-60"></div>
 
+    {% endblock %}

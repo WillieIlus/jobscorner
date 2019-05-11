@@ -20,16 +20,16 @@ class ProfileForm(forms.ModelForm):
         'placeholder': 'Give a good description about yourself, help people understand your strength, and skills'}))
     location = forms.ModelChoiceField(label='', required=False, queryset=Location.objects.all(),
                                       empty_label="Choose Location")
-    birth_date = forms.DateField(label='', required=True, widget=forms.DateInput(attrs={'placeholder': 'Birth Date'}))
-    thumbnail = forms.ImageField(label='', required=True, widget=forms.FileInput(attrs={'placeholder': 'Thumbnail'}))
-    phone = forms.CharField(label='', required=True, widget=forms.NumberInput(attrs={'placeholder': 'phone'}))
-    website = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'website'}))
-    facebook = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'facebook'}))
-    instagram = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'instagram'}))
-    twitter = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'twitter'}))
-    linkedin = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'linkedin'}))
-    google = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'google'}))
-    pinterest = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'pinterest'}))
+    birth_date = forms.DateField(label='', required=False, widget=forms.DateInput(attrs={'placeholder': 'Birth Date'}))
+    thumbnail = forms.ImageField(label='', required=False, widget=forms.FileInput(attrs={'placeholder': 'Thumbnail'}))
+    phone = forms.CharField(label='', required=False, widget=forms.NumberInput(attrs={'placeholder': 'phone'}))
+    website = forms.URLField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'website'}))
+    facebook = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'facebook'}))
+    instagram = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'instagram'}))
+    twitter = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'twitter'}))
+    linkedin = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'linkedin'}))
+    google = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'google plus'}))
+    pinterest = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'pinterest'}))
     tags = forms.CharField(label='', required=False,
                            widget=forms.TextInput(attrs={'placeholder': 'Tags, A comma-separated list of tags'}))
 
@@ -87,8 +87,8 @@ class SkillForm(forms.ModelForm):
     name = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Skill Name'}))
     description = forms.CharField(label='', required=True, widget=forms.Textarea(attrs={
         'placeholder': 'short description'}))
-    level = forms.ChoiceField(label='', required=True, widget=forms.RadioSelect, choices=SKILL_LEVELS)
-    tags = forms.CharField(label='', required=True,
+    level = forms.ChoiceField(label='', required=False, widget=forms.RadioSelect, choices=SKILL_LEVELS)
+    tags = forms.CharField(label='', required=False,
                            widget=forms.TextInput(attrs={'placeholder': 'A comma-separated list of tags.'}))
 
     class Meta:
@@ -114,9 +114,9 @@ class SkillForm(forms.ModelForm):
 class EducationForm(forms.ModelForm):
     major = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Major'}))
     school = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'School Name'}))
-    school_url = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'School Url'}))
-    start_date = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Start Date'}))
-    completion_date = forms.CharField(label='', required=True,
+    school_url = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'School Url'}))
+    start_date = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'Start Date'}))
+    completion_date = forms.CharField(label='', required=False,
                                       widget=forms.TextInput(attrs={'placeholder': 'Completion Date'}))
     summary = forms.CharField(label='', required=True, widget=forms.Textarea(attrs={
         'placeholder': 'Summary'}))
@@ -153,9 +153,9 @@ class EducationForm(forms.ModelForm):
 class ExperienceForm(forms.ModelForm):
     role = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Role'}))
     company = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Company Name'}))
-    company_url = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Company Url'}))
-    start_date = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Start Date'}))
-    completion_date = forms.CharField(label='', required=True,
+    company_url = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'Company Url'}))
+    start_date = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'Start Date'}))
+    completion_date = forms.CharField(label='', required=False,
                                       widget=forms.TextInput(attrs={'placeholder': 'Completion Date'}))
     description = forms.CharField(label='', required=True, widget=forms.Textarea(attrs={
         'placeholder': 'short description'}))

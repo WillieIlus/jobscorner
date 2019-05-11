@@ -2,12 +2,24 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
 
+{% block title %} Signup | {{ block.super }} {% endblock %}</title>
+{% block lead %}
+Signup
+{% endblock %}
+
+{% block jumbotron %}
+<a class="btn btn-common">
+  form
+</a>
+{% endblock  %}
+
+
 {% block content %}
 
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">Sign up for a free account</h5>
+      <h5 class="modal-title">Employer's account, can add business and jobs, non-employer account can add Profile/resume </h5>
     </div>
     <div class="modal-body">
       <a href="{% url 'accounts:normal_user_signup' %}" class="btn btn-success btn-lg" role="button">I'm not

@@ -7,8 +7,10 @@
 {{ location.name }}
 {% endblock %}
 {% block jumbotron %}
-<li class="breadcrumb-item"><a href='{% url "location:list" %}'>Location List</a></li>
-<li class="breadcrumb-item active">{{ location.name }}</li>
+<a class="btn btn-common" href='{% url "location:list" %}'>Location List
+</a>
+<a class="btn btn-common active">{{ location.name }}
+</a>
 {% endblock  %}
 
 

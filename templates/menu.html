@@ -22,12 +22,12 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href='{% url "company:list" %}'>
-              Company
+              Companies
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href='{% url "job:list" %}'>
-              Job
+              Jobs
             </a>
           </li>
           <li class="nav-item">
@@ -42,7 +42,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href='{% url "resume:list" %}'>
-              Users
+              Profiles
             </a>
           </li>
           {% if request.user.is_authenticated %}
@@ -78,12 +78,12 @@
       </li>
       <li>
         <a class="page-scroll" href='{% url "company:list" %}'>
-          Company
+          Companies
         </a>
       </li>
       <li>
         <a class="page-scroll" href='{% url "job:list" %}'>
-          Job
+          Jobs
         </a>
       </li>
       <li>
@@ -98,7 +98,7 @@
       </li>
       <li>
         <a class="page-scroll" href='{% url "resume:list" %}'>
-          User
+          Profiles
         </a>
       </li>
       {% if request.user.is_authenticated %}

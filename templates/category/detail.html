@@ -9,9 +9,14 @@
 {{ category.name }}
 {% endblock %}
 {% block jumbotron %}
-<li class="breadcrumb-item"><a href='{% url "category:list" %}'>Category List</a></li>
-<li class="breadcrumb-item active">{{ category.name }}</li>
+<a class="btn btn-common breadcrumb-item active" href='{% url "category:list" %}'>
+  Category List
+</a>
+<a class="btn btn-common" href='{% url "category:new" %}'>
+  {{ category.name }}
+</a>
 {% endblock  %}
+
 
 {% block content %}
 
@@ -82,10 +87,16 @@
 <!--end of simple card-->
 {% endfor %}
 {% else %}
+
+<div class="container">
+  <hr/>
+  <h4 class="sub-title space-left">Companies under {{ category.name }} </h4>
+</div>
+
 <div class="modal-dialog" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <h5 class="modal-title">currently no jobs</h5>
+      <h5 class="modal-title">currently no Companies </h5>
     </div>
     <div class="modal-body">
       <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Your Company </a>

@@ -3,9 +3,20 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 
-{% block title %}   Account List   | {{ block.super }} {% endblock %}
-{% block breadcrumb %}
+
+{% block title %} Profile List | {{ block.super }} {% endblock %}
+{% block lead %}
+Profile/Resume list
+{% endblock %}
+{% block jumbotron %}
+        <a class="btn btn-common breadcrumb-item active">
+          Profile/Resume list
+        </a>
+        <a class="btn btn-common" href='{% url "resume:new" %}'>
+          new
+        </a>
 {% endblock  %}
+
 {% block content %}
 
 
@@ -50,26 +61,4 @@
   {% endif %}
 </div>
 <!--end table list-->
-
-{% if users.has_other_pages %}
-  <ul class="pagination">
-    {% if users.has_previous %}
-      <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&laquo;</span></li>
-    {% endif %}
-    {% for i in users.paginator.page_range %}
-      {% if users.number == i %}
-        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-      {% else %}
-        <li><a href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if users.has_next %}
-      <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
-    {% else %}
-      <li class="disabled"><span>&raquo;</span></li>
-    {% endif %}
-  </ul>
-{% endif %}
 {% endblock %}

@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-
-<title>{% block title %}  Location List  | {{ block.super }} {% endblock %}</title>
+{% block title %}  Location List  | {{ block.super }} {% endblock %}
 {% block lead %}
 Location List 
  {% endblock %}
 {% block jumbotron %}
-      <li class="breadcrumb-item active"> Location List</li>
-      <li class="breadcrumb-item active"><a href='{% url "location:new" %}'> New</a></li>
+        <a class="btn btn-common breadcrumb-item active">
+          Location List
+        </a>
+        <a class="btn btn-common" href='{% url "location:new" %}'>
+          new
+        </a>
 {% endblock  %}
+
 
 
 {% block content %}

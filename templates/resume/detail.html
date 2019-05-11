@@ -8,6 +8,7 @@
 {% endblock  %}
 {% block content %}
 <!-- Headers Start -->
+
 <div id="headers">
   <!-- Light header -->
   <header id="header-style-1">
@@ -20,11 +21,21 @@
               <h2 class="header-title animated fadeInUp" data-wow-delay="0.4s">{{ profile.user.get_full_name }}</h2>
               <p class="header-text animated  fadeInUp" data-wow-delay="0.6s">{{ profile.title }}</p>
               <div class="social-icon col-md-12 col-sm-12 mx-auto">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-google-plus"></i></a>
-                <a href="#"><i class="fa fa-pinterest"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
+                {% if profile.facebook %}
+                <a href="{{ profile.facebook }}"><i class="fa fa-facebook"></i></a>
+                {% endif %}
+                {% if profile.twitter %}
+                <a href="{{ profile.twitter }}"><i class="fa fa-twitter"></i></a>
+                {% endif %}
+                {% if profile.google %}
+                <a href="{{ profile.google }}"><i class="fa fa-google-plus"></i></a>
+                {% endif %}
+                {% if profile.pinterest %}
+                <a href="{{ profile.pinterest }}"><i class="fa fa-pinterest"></i></a>
+                {% endif %}
+                {% if profile.linkedin %}
+                <a href="{{ profile.linkedin }}"><i class="fa fa-linkedin"></i></a>
+                {% endif %}
               </div>&nbsp;
               <div class="header-button wow fadeInUp" data-wow-delay="1s">
                 <a class="btn btn-common" href="#">Hire Me</a>

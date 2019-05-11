@@ -34,7 +34,7 @@
   <!-- Fonts icons -->
   <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
 
-    <!-- CSS Files -->
+  <!-- CSS Files -->
 
   <!--fonts ===========================================-->
   {% block stylesheet %}{% endblock %}
@@ -52,21 +52,15 @@
       <div class="page-header-title">
         <h2 class="heading-title text-center">{% block lead %} {% endblock %}</h2>
       </div>
-      <div class="row">
-        <div class="text-center sub-title">
-        <span class="text-center sub-title">
-    <h6 class="text-center sub-title"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home </a></h6>
-        </span>
-          <span class="text-center sub-title">
-          <h6 class="text-center sub-title">
-    {% block jumbotron %} {% endblock %}
-          </h6>
-      </span>
-        </div>
+      <div class="controls text-center wow fadeInUpQuick" data-wow-delay=".6s">
+        <a class="filter btn btn-common" href='{% url "home" %}'><i class="fas fa-home"></i>Home </a>
+      {% block jumbotron %} {% endblock %}
       </div>
     </div>
   </div>
 </div>
+
+
 <!-- Page Header End -->
 {% endblock %}
 {% block content %}

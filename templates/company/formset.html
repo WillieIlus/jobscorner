@@ -2,13 +2,16 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
 
-<title>{% block title %} {{ title }} | {{ block.super }} {% endblock %}</title>
+
+{% block title %} formset | {{ block.super }} {% endblock %}
 {% block lead %}
-{{ title }}
+formset
 {% endblock %}
+
 {% block jumbotron %}
-<li class="breadcrumb-item"><a href='{% url "home" %}'><i class="fas fa-home"></i>Home</a></li>
-<li class="breadcrumb-item active"> {{ title }}</li>
+<a class="btn btn-common">
+  form
+</a>
 {% endblock  %}
 
 {% block content %}

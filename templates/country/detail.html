@@ -2,13 +2,15 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
 
-{% block title %}  {{ country.name }}  | {{ block.super }} {% endblock %}
+{% block title %}  {{ country.name }}  | {{ block.super }} {% endblock %} %}
 {% block lead %}
-{{ job.title }}
+{{ country.name }}
 {% endblock %}
 {% block jumbotron %}
-<li class="breadcrumb-item"><a href='{% url "country:list" %}'>Country List</a></li>
-<li class="breadcrumb-item active">{{ country.name }}</li>
+<a class="btn btn-common" href='{% url "country:list" %}'>Country List
+</a>
+<a class="btn btn-common active">{{ country.name }}
+</a>
 {% endblock  %}
 
 {% block content %}
@@ -29,11 +31,11 @@
       <p class="lead">{{ country.description }}</p>
       <hr/>
       <p>
-        <i class="fas fa-user-tie"></i> <a> Wilson Irungu </a> |
+        <i class="fas fa-user-tie"></i> <a> Admin </a> |
         {% if country.website %}
         <span> <i class="far fa-calendar-alt"></i><a href="{{ country.website}}"> Website  | </a> </span>
+        <span></span> at {{ country.publish }}
         {% endif %}
-        <span></span> at Jan/17/2019
       </p>
       <div class="pull-right">
         <a href='{% url "country:edit" country.slug %}' type="button" class="btn btn-primary pull-right">Update

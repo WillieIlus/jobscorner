@@ -2,41 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="456334f7-bfd9-4358-8c04-a4329cb98e12" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/category/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/category/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/location/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/resume/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/resume/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/bg/hero-1-bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/bg/hero-1-bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/bg/hero-4-bg.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/bg/hero-4-bg.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slider/bg-1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/slider/bg-1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slider/bg-2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/slider/bg-2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/img/slider/bg-3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/static/img/slider/bg-3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/category/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/category/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/category/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/category/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/formset.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/formset.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/country/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/country/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/country/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/country/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/footer.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/footer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/header.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/header.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/job/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/job/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/job/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/job/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/location/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/location/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/location/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/location/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/signup_form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/signup_form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/cv/cv_pdf.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/cv/cv_pdf.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reviews/latest_reviews.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/latest_reviews.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reviews/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -73,7 +39,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resume/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
@@ -81,6 +47,15 @@
               <folding>
                 <element signature="e#0#52#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/base.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -132,7 +107,6 @@
       <list>
         <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/templates/header.html" />
-        <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/category/detail.html" />
         <option value="$PROJECT_DIR$/templates/reviews/list.html" />
         <option value="$PROJECT_DIR$/templates/footer.html" />
@@ -161,12 +135,13 @@
         <option value="$PROJECT_DIR$/templates/resume/detail2.html" />
         <option value="$PROJECT_DIR$/templates/resume/cv/cv_pdf.html" />
         <option value="$PROJECT_DIR$/resume/views.py" />
+        <option value="$PROJECT_DIR$/templates/base.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="109" />
-    <option name="y" value="36" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="423" />
+    <option name="y" value="100" />
     <option name="width" value="1174" />
     <option name="height" value="688" />
   </component>
@@ -238,10 +213,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="423" y="100" width="1174" height="688" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27901787" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33010563" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -280,13 +255,6 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/reviews/detail.html">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -561,6 +529,13 @@
           <folding>
             <element signature="e#0#52#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
         </state>
       </provider>
     </entry>

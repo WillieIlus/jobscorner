@@ -2,77 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="456334f7-bfd9-4358-8c04-a4329cb98e12" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templatetags/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/templatetags/post_tags.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/utils.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/blog/detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/blog/latest-posts.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/blog/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/category/random-categories.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/templatetags/accounts_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/templatetags/accounts_tags.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/accounts/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/accounts/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/category/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/category/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/category/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/category/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/category/templatetags/category_tags.py" beforeDir="false" afterPath="$PROJECT_DIR$/category/templatetags/category_tags.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/category/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/category/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/company/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/company/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/company/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company/migrations/0002_closingrules_openinghours.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/company/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/company/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/company/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/company/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/country/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/country/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/country/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/country/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/country/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/country/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homepage/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/homepage/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/job/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/job/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/job/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/job/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/job/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobcorner/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/jobcorner/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jobcorner/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/jobcorner/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/location/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/location/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/location/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/location/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/location/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/resume/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resume/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/resume/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/migrations/0001_initial.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/migrations/0001_initial.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reviews/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/reviews/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/bootstrap.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/bootstrap.min.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/accounts/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accounts/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/category/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/category/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/formset.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/formset.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/company/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/company/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/form.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/form.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/job/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/job/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/location/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/location/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/menu.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/menu.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pinax/messages/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pinax/messages/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pinax/messages/inbox.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pinax/messages/inbox.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pinax/messages/message_create.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pinax/messages/message_create.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pinax/messages/thread_confirm_delete.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pinax/messages/thread_confirm_delete.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pinax/messages/thread_detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pinax/messages/thread_detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/registration/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/signup.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/cv/cv_pdf.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/cv/cv_pdf.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/latest_profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/latest_profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/resume/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/resume/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/reviews/latest_reviews.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/reviews/latest_reviews.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -393,6 +323,14 @@
       <option name="presentableId" value="Default" />
       <updated>1557506216178</updated>
     </task>
+    <task id="LOCAL-00001" summary="added blog to project">
+      <created>1559854323832</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1559854323861</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -417,6 +355,10 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added blog to project" />
+    <option name="LAST_COMMIT_MESSAGE" value="added blog to project" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/templates/footer.html">

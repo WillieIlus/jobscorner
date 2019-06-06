@@ -60,6 +60,7 @@
       },
     });
 
+
     /* Back Top Link acive
     ========================================================*/
       var offset = 200;
@@ -81,5 +82,9 @@
       });
 
   });      
+//pinax likes
+
+
+require('eldarion-ajax');
 
 }(jQuery));

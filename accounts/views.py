@@ -27,7 +27,7 @@ class NormalSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('home')
+        return redirect('dashboard')
 
 
 class EmployerSignUpView(CreateView):
@@ -42,7 +42,7 @@ class EmployerSignUpView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('home')
+        return redirect('dashboard')
 
 
 def validate_email(request):
@@ -69,6 +69,7 @@ class UserLogin(LoginView):
     model = User
     form_class = LoginForm
     template_name = 'accounts/login.html'
+    success_url = '/dashboard/'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -80,6 +81,7 @@ class UserUpdateView(LoginRequiredMixin, UpdateView):
     model = User
     fields = ('first_name', 'last_name', 'email',)
     template_name = 'accounts/my_account.html'
+    success_url = '/dashboard/'
 
     def get_object(self):
         return self.request.user

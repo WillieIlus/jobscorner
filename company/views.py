@@ -1,26 +1,59 @@
 from builtins import super
 
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.checks import messages
+# from django.core.checks import messages
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, ListView, DeleteView, CreateView
-from extra_views import CreateWithInlinesView, InlineFormSetFactory, UpdateWithInlinesView, ModelFormSetView, \
-    FormSetView
+from django.views.generic import DeleteView, CreateView
+from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory
+from hitcount.views import HitCountDetailView
 
 from accounts.decorators import UserRequiredMixin
+from category.models import Category
 from company.models import Company, CompanyImage, OpeningHours, ClosingRules
 # Category views
+from jobcorner import settings
+from location.models import Location
 from reviews.forms import ReviewForm
-
 from .filters import CompanyFilter
-from .forms import CompanyForm, OpeningHoursForm, OpeningHoursFormset
+from .forms import CompanyForm, OpeningHoursForm, CompanyFilterForm
 
 
 def company_list_view(request):
     company_list = Company.objects.all()
     company_filter = CompanyFilter(request.GET, queryset=company_list)
-    return render(request, 'company/list.html', {'filter': company_filter})
+    form = CompanyFilterForm(data=request.GET)
+
+    facets = {
+        "selected": {},
+        "catego": {
+            "category": Category.objects.all(),
+            "location": Location.objects.all(),
+        },
+    }
+    if form.is_valid():
+        category = form.cleaned_data["category"]
+        if category:
+            facets["selected"]["category"] = category
+        company_list = company_list.filter(category=category).distinct()
+        location = form.cleaned_data["location"]
+        if location:
+            facets["selected"]["location"] = location
+        company_list = company_list.filter(location=location).distinct()
+
+    if settings.DEBUG:
+        from pprint import pprint
+        pprint(facets)
+
+    context = {
+        "form": form,
+        "facets": facets,
+        "object_list": company_list,
+        'filter': company_filter,
+    }
+
+    return render(request, 'company/list.html', context)
 
 
 class PhotosInline(InlineFormSetFactory):
@@ -70,14 +103,16 @@ class CompanyDelete(LoginRequiredMixin, UserRequiredMixin, DeleteView):
     template_name = 'delete.html'
 
 
-class CompanyDetail(DetailView):
+class CompanyDetail(HitCountDetailView):
     model = Company
     template_name = 'company/detail.html'
     context_object_name = 'company'
     slug_field = 'slug'
+    count_hit = True
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        # context['meta'] = self.get_object().as_meta(self.request)
         context['company_image'] = CompanyImage.objects.filter(company=self.get_object())
         context['open_hours'] = OpeningHours.objects.filter(company=self.get_object())
         context['closing_rules'] = ClosingRules.objects.filter(company=self.get_object())
@@ -90,20 +125,39 @@ class CompanyDetail(DetailView):
         return super().post(request, *args, **kwargs)
 
 
-class OpeningHourCreate(LoginRequiredMixin, FormSetView):
+#
+# class OpeningHourCreate(LoginRequiredMixin, ModelFormSetView):
+#     model = OpeningHours
+#     form_class = OpeningHoursForm
+#     # formset_class = OpeningHoursFormset
+#     template_name = 'company/formset.html'
+#     flocationy_kwargs = {'can_order': False, 'can_delete': False}
+#     # formset_kwargs = {'auto_id': 'my_id_%s'}
+#
+#
+#     def form_valid(self, form):
+#         form.instance.company = get_object_or_404(Company, slug=self.kwargs['slug'])
+#         form.save()
+#         return super().form_valid(form)
+#
+#     def form_invalid(self, form):
+#         """
+#         If the form is invalid, re-render the context data with the
+#         data-filled form and errors.
+#         """
+#         print('the is an error in your form')
+#         messages.warning(self.request, 'There was an error in this form')
+#         return self.render_to_response(self.get_context_data(form=form))
+#
+
+
+class OpeningHourCreate(LoginRequiredMixin, CreateView):
     model = OpeningHours
-    fields = ['weekday', 'from_hour', 'to_hour']
-    # form_class = OpeningHoursForm
-    template_name = 'company/formset.html'
-    # initial = [{'type': 'home'}, {'type', 'work'}]
-    factory_kwargs = {'extra': 1, 'max_num': 7,
-                      'can_order': False, 'can_delete': True}
+    form_class = OpeningHoursForm
+    template_name = 'form.html'
 
     def form_valid(self, form):
-        form = form.save(Commit=False)
-        form.company = get_object_or_404(Company, slug=self.kwargs['slug'])
-        # form.instance.company = get_object_or_404(Company, pk=self.kwargs['company_id'])
-
+        form.instance.company = get_object_or_404(Company, slug=self.kwargs['slug'])
         form.save()
         return super().form_valid(form)
 
@@ -116,7 +170,7 @@ class OpeningHourCreate(LoginRequiredMixin, FormSetView):
         messages.warning(self.request, 'There was an error in this form')
         return self.render_to_response(self.get_context_data(form=form))
 
-# class ItemFormSetView():
-# model = Item
-# fields = ['name', 'sku']
-# template_name = 'item_formset.html'
+# follow(request.user)
+# unfollow(request.user)
+# followers(request.user) # returns a list of Users who follow request.user
+# following(request.user) # returns a list of locations who request.user is following

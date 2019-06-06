@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load markdown_deux_tags %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load category_tags %}
+{% load post_tags %}
+
+
+<title>{% block title %} {{ post.title }} | {{ block.super }} {% endblock %}</title>
+{% block lead %}
+{{ post.title }}
+{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common breadcrumb-item active" href='{% url "blog:list" %}'>
+  Blog List
+</a>
+<a class="btn btn-common" href='{% url "blog:new" %}'>
+  New
+</a>
+{% endblock  %}
+
+
+{% block content %}
+
+
+<!-- Blog content + sidebar -->
+<section class="blog">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-9 col-md-12 col-xs-12">
+        <div class="blog-block post-content-area">
+          {% if post.image %}
+          <img alt="image" class="d-block w-100" src='{{ post.image.url }}'>
+          {% else %}
+          <img alt="image" class="d-block w-100" src=''>
+          {% endif %}
+          <div class="blog-post">
+            <h3><a href="#">{{ post.title }}</a></h3>
+            <span class="pull-right label label-pill label-primary">
+            Read time: {% if post.read_time <= 1 %} < 1 Minute {% else %}{{ post.read_time }} minutes {% endif %}
+            </span>
+            <span class="pull-right label label-pill label-primary">
+              {{ hitcount.total_hits }} Views This Month
+            </span>
+            <div>
+              {{ post.content|markdown }}
+            </div>
+          </div>
+        </div>
+        <div class="mb-60"></div>
+        <!--form-->
+        <div class="blog-block mx-auto col-md-12 mb-2">
+          <div class="card-body">
+            <h2>Add Your Comment</h2>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <form action="{% url 'blog:add_comment' post.id %}" class="form-ad" enctype="multipart/form-data"
+                  method="post">
+              <div class="form-group is-empty">
+                {% csrf_token %}
+                {% crispy form %}
+              </div>
+            </form>
+          </div>
+        </div>
+        <!--endform-->
+
+        <!--simple other card 5-->
+        <div class="card mx-auto col-md-12 col-sm-12 mb-2 ">
+          <div class="card-body">
+            {% if post.comments %}
+            <h2 class="title-2">Comments</h2>
+            {% for obj in post.comments.all %}
+            <div class="row">
+              <div class="col-md-5 col-sm-12">
+                <div class="row">
+                  <div class="col-md-5 col-sm-12">
+                    <img alt="..." class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+                  </div>
+                  <div class="col-md-7 col-sm-12">
+                    <a href="">
+                      <h3 class="card-title">{{ obj.user.username }}</h3></a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7 col-sm-12 post-header-line">
+                <h6 class="text-muted">
+                  <small> | {{ obj.publish }}</small>
+                </h6>
+                <hr/>
+                <p>{{ obj.body|markdown }}</p>
+                <br/>
+              </div>
+            </div>
+            <hr/>
+            {% endfor %}
+            {% else %}
+            <p>No comment for this post yet</p>
+            {% endif %}
+          </div>
+        </div>
+        <!--end of simple other card 5-->
+
+      </div>
+      <!-- Blog sidebar area -->
+      <div class="col-lg-3 col-md-12 col-xs-12">
+        <div class="blog-block about-sidebar-widget">
+          <img src="img/blog/author.jpg">
+          <h4>About Author</h4>
+          {{ post.author.username }}
+          {{ post.author.get_full_name }}
+        </div>
+
+        <div class="mb-60"></div>
+
+        <div class="blog-block categories-sidebar-widget">
+          <h4>Categories</h4>
+          {% random_categories 6 %}
+        </div>
+        <div class="mb-60"></div>
+
+        <div class="blog-block blog-posts-widget">
+          <div class="widget-title">
+            <h4>Recent Posts</h4>
+            {% latest_posts 6 %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</section>
+<div class="mb-60"></div>
+
+
+{% endblock content %}
+
+
+

@@ -26,6 +26,8 @@ class JobForm(forms.ModelForm):
     category = forms.ModelChoiceField(label='', required=False, queryset=Category.objects.all(),
                                       empty_label="Choose Category")
     remote = forms.BooleanField(label='Remote', required=False, widget=forms.CheckboxInput()),
+    opening = forms.IntegerField(label='', required=False,
+                                 widget=forms.NumberInput(attrs={'placeholder': 'Vacancies Open'}))
     tags = forms.CharField(label='', required=False,
                            widget=forms.TextInput(attrs={'placeholder': 'Tags, A comma-separated list of tags'}))
 
@@ -33,7 +35,8 @@ class JobForm(forms.ModelForm):
         model = Job
         # fields = "__all__"
         fields = (
-            'title', 'salary', 'description', 'application_info', 'work_hours', 'contact_email', 'url', 'location',
+            'title', 'salary', 'description', 'application_info', 'work_hours', 'contact_email', 'opening', 'url',
+            'location',
             'category', 'remote', 'tags')
 
     def __init__(self, *args, **kwargs):
@@ -48,7 +51,8 @@ class JobForm(forms.ModelForm):
             'application_info',
             Row(
                 Column('work_hours', css_class='mt-10 form-group col-md-4 mb-0'),
-                Column('contact_email', css_class='mt-10 form-group col-md-8 mb-0'),
+                Column('contact_email', css_class='mt-10 form-group col-md-4 mb-0'),
+                Column('opening', css_class='mt-10 form-group col-md-4 mb-0'),
                 css_class='form-row'
             ),
             Row(

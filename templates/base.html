@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 {% load static %}
+{% load meta %}
 <html lang="en">
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-
+  <link href="static\img\jc-logo.svg" rel="shortcut icon">
   <title>{% block title %} Job-Cycle {% endblock %}</title>
+
+  {% meta_namespaces %}>
+  {% include "meta/meta.html" %}
 
   <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
   <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
@@ -54,7 +58,8 @@
       </div>
       <div class="controls text-center wow fadeInUpQuick" data-wow-delay=".6s">
         <a class="filter btn btn-common" href='{% url "home" %}'><i class="fas fa-home"></i>Home </a>
-      {% block jumbotron %} {% endblock %}
+        <a class="filter btn btn-warning" href='{% url "dashboard" %}'><i class="fas fa-home"></i>Dashboard </a>
+        {% block jumbotron %} {% endblock %}
       </div>
     </div>
   </div>
@@ -72,6 +77,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
+<!--pinax likes-->
+<script src="https://cdn.jsdelivr.net/npm/eldarion-ajax@0.16.0/js/eldarion-ajax.min.js"></script>
+<script src="{% static 'js/eldarion-ajax.min.js' %}"></script>
+
+
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{% static 'js/jquery-min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
@@ -87,7 +97,6 @@
 <script src="{% static 'js/contact-form-script.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 
-<script src="{% static 'js/eldarion-ajax.min.js' %}"></script>
 
 {% block javascript %}{% endblock %}
 </body>

@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 {% load staticfiles %}
 {% load pinax_likes_tags %}
-
+{% load activity_tags %}
+{% load accounts_tags %}
 <title>{% block title %} {{ company.name }} | {{ block.super }} {% endblock %}</title>
-
 
 {% block breadcrumb %}
 {% endblock  %}
@@ -63,7 +63,7 @@
       <div class="row">
         {% if company.logo %}
         <div class="col-md-2 col-sm-6">
-          <img alt="..." class="d-block w-100" src='{{ company.logo.url }}'>
+          <img alt="logo" class="d-block w-100" src='{{ company.logo.url }}'>
         </div>
         {% else %}
         <div class="col-md-2 col-sm-12">
@@ -72,48 +72,99 @@
         {% endif %}
         <div class="pull-right col-md-10 col-sm-12">
           <div class="col-md-12 post-header-line">
-            <h4 class="card-title text-primary">{{ company.name }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{ company.location.name }} | {{ company.location.country.name }}
-              {% if company.openTime %}
-              | Open Time: {{ company.openTime }} - Close Time: {{ company.closeTime }}</h6>
-            {% endif %}
+            <h2 class="title-2 text-primary">{{ company.name }}</h2>
+            <span class="pull-right label label-pill label-primary">
+              {{ hitcount.total_hits }} Views This Month
+            </span>
+            <br/>
+            <p>
+                          <span class="text-muted">
+                            <i class="fas fa-star"></i> {{ company.average_rating | floatformat }} rating
+                          </span> |
+              <span class="text-muted"><i class="fas fa-comments"></i> {{ company.review_set.count }} reviews</span>
+              <span><i class="far fa-calendar-alt"></i></span> | {{ company.publish }} |
+              <span><i class="fas fa-tags"></i></span> Category : {{ company.category }}
+            </p>
             <hr/>
-            <span class="text-muted"><i
-                    class="fas fa-star"></i> {{ company.average_rating | floatformat }} rating</span> |
-            <span class="text-muted"><i class="fas fa-comments"></i> {{ company.review_set.count }} reviews</span>
+
+            <span class="text-muted"> Email: {{ company.email }} </span>
+            <span class="text-muted"> <a href="{{ company.website }}"> | Website  </a></span>
+            <span class="card-subtitle mb-2 text-muted">  | {{ company.location.name }}, {{ company.location.country.name }}</span>
+
             <hr/>
-            <div>
-              <h2 class="title-2">Description</h2>
-              <p class="content-markdown card-text">{{ company.description }}</p>
+            <div class="row">
+              <div class="col-lg-8 col-md-8 col-md-12">
+                <h3 class="title-2">Description</h3>
+                <p class="content-markdown card-text">{{ company.description }}</p>
+              </div>
+
+              <div class="col-md-4 col-sm-12">
+                <div class="business-hours">
+                  <h4 class="title">Opening Hours</h4>
+                  {% if company.open_hours.all %}
+                  {% for obj in company.open_hours.all %}
+                  <ul class="list-unstyled opening-hours col-sm-12">
+                    <li>{{ obj.get_weekday_display }}
+                      <span class="pull-right">{{ obj.from_hour }}-{{ obj.to_hour}}
+                      </span>
+                    </li>
+                  </ul>
+                  {% endfor %}
+                  <a class="btn btn-success" href='{% url "company:add_open_hours" company.slug %}'>Add Other days </a>
+                  {% else %}
+                  <a class="btn btn-success" href='{% url "company:add_open_hours" company.slug %}'>Add Business
+                    Hours </a>
+                  {% endif %}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div>
-        {% if company.user == request.user %}
         <hr/>
+        {% if company.user == request.user %}
         <a class="btn btn-primary" href='{% url "company:edit" company.slug %}'>Update </a>
         <a class="btn btn-danger" href='{% url "company:delete" company.slug %}'>Delete </a>
         <a class="btn btn-success" href='{% url "company:new_job" company.slug %}'>Add Job Vacancy </a>
+        {% else %}
+        <a class="btn btn-primary" href="{% url 'pinax_messages:message_user_create' user_id=object.user.id %}">
+          <i class="fa fa-envelope"></i> Message this user
+        </a>
         {% endif %}
+        <div class="pull-right">
+          <div class="social-footer">
+            <span> Share on </span>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+              <i class="fa fa-facebook icon-round"></i></a>
+            <a href="https://twitter.com/home?status={{ company.name }}%20{{ request.build_absolute_uri }}/">
+              <i class="fa fa-twitter icon-round"></i></a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-<div class="container">
-  {% if company.open_hours %}
-  {% for obj in company.open_hours.all %}
-  <div>
-    <h2 class="title-2">{{ obj.weekday }}</h2>
-    <div>
-      <span class="pull-left"> from {{ obj.from_hour }} to {{ obj.to_hour}}</span>
+  {% if company.photos %}
+  <!-- portfolio section 4col -->
+  <section id="portfolio">
+    <div class="container">
+      <h2 class="heading-title text-center">Photos</h2>
+      <ul class="row portfolio list-unstyled" id="grid">
+        {% for obj in company.photos.all %}
+        <li class="col-md-3 col-sm-6 project">
+          <figure>
+            <div class="hovereffect">
+              <img src="{{ obj.img.url }}" alt="{{ photo.alt }}"/>
+            </div>
+          </figure>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
-  </div>    <br/><hr/>
-
-  {% endfor %}
-  {% endif %}
-</div>
-
-
+  </section>
+  <br/>
+  <!-- Content Area End -->
+  {% if company.user != request.user %}
   <!--form-->
   <div class="card mx-auto col-md-12 mb-2">
     <div class="card-body">
@@ -129,7 +180,7 @@
     </div>
   </div>
   <!--endform-->
-
+  {% endif %}
   <!--simple other card 5-->
   <div class="card mx-auto col-md-10 col-sm-12 mb-2 ">
     <div class="card-body">
@@ -180,14 +231,33 @@
 <div class="mb-60"></div>
 
 
-<h2>Similar companies</h2>
-{% for obj in related_company %}
-<p>
-  <a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a>
-</p>
+<div class="container">
+  <div class="page-header-title">
+    <h2 class="heading-title color-title text-center">Similar companies</h2>
+  </div>
+</div>
+{% for obj in related %}
+<!-- card -->
+<div class="col-md-3">
+  <div class="card">
+    {% if obj.logo %}
+    <img alt="" class="card-img-top" src='{{ obj.logo.url }}'>
+    {% endif %}
+    <div class="card-block">
+      <h3 class="card-title"><a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a></h3>
+      <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
+    </div>
+  </div>
+</div>
+<!-- End card -->
 {% empty %}
-There are no similar company yet.
+<div class="container">
+  <div class="page-header-title">
+    <p>
+      There are no similar company yet.
+    </p>
+  </div>
+</div>
 {% endfor %}
-
-
+{% endif %}
 {% endblock %}

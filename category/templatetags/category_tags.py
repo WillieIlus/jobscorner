@@ -11,6 +11,12 @@ def total_categories():
 
 
 @register.inclusion_tag('category/categories.html')
-def show_categories(count=5):
+def show_categories(count=6):
+    categories = Category.objects.order_by('name')[:count]
+    return {'categories': categories}
+
+
+@register.inclusion_tag('category/random-categories.html')
+def random_categories(count=6):
     categories = Category.objects.order_by('name')[:count]
     return {'categories': categories}

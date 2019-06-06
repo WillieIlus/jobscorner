@@ -6870,9 +6870,10 @@ nav#menu span.fa.fa-bars:hover {
 }
 
 .features-wrap {
-  background: #f5f5f5;
+  background: #ffffff;
   padding: 30px 30px 0px;
   margin-bottom: 50px;
+  border: 1px solid #ddd;
 }
 
 /* Features Box */
@@ -7233,9 +7234,9 @@ nav#menu span.fa.fa-bars:hover {
   position: relative;
   display: block;
   margin-bottom: 30px;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
   border-radius: 0;
-  border: 0;
+  border: 1px solid #ddd;
   width: 100%;
 }
 
@@ -9345,5 +9346,47 @@ img {
   text-transform: uppercase;
   margin: 0 0 20px 0;
 }
-XXXXXXXXXXXXXXXXXXXx
+
+$(document).ready(function() {
+$('.opening-hours li').eq(new Date().getDay()).addClass('today');
+});
+
+
 .cta-section::before{position:absolute;width:100%;height:100%;top:0;left:0;content:"";background-color:rgba(0,0,0,0.3)}.cta-area{display:table;width:100%;height:150px}.cta-content{display:table-cell;vertical-align:middle}.cta-content h2{color:#fff;font-size:38px;font-weight:500;line-height:52px}.cta-content .btn{font-size:16px;margin-top:15px;padding:13px 24px;text-transform:uppercase}.cta-content h2{font-size:26px;line-height:38px}
+
+
+
+.business-hours {
+padding: 40px 14px;
+margin-top: -15px;
+position: relative;
+}
+.business-hours:before{
+content: '';
+width: 23px;
+height: 23px;
+background: #111;
+position: absolute;
+top: 5px;
+left: -12px;
+transform: rotate(-45deg);
+z-index: -1;
+}
+.business-hours .title {
+font-size: 20px;
+color: #BBB;
+text-transform: uppercase;
+padding-left: 5px;
+border-left: 4px solid #ffac0c;
+}
+.business-hours li {
+color: #888;
+line-height: 30px;
+border-bottom: 1px solid #333;
+}
+.business-hours li:last-child {
+border-bottom: none;
+}
+.business-hours .opening-hours li.today {
+color: #ffac0c;
+}

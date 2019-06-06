@@ -1,10 +1,15 @@
 <div class="container">
   <div class="row">
+    <div class="col-12">
+      <div class="page-header-title">
+        <h2 class="heading-title text-center">Latest Resumes</h2>
+      </div>
+    </div>
     {% for obj in latest_profile %}
     <div class="col-md-4">
       <div class="card-2">
         <div class="image">
-          <img src="img/card/img-03.jpg">
+           <img class="img-fluid" src='{{ obj.thumbnail.url }}' alt="">
         </div>
         <div class="card-block">
           <h3 class="card-title"><a href="{{ obj.get_absolute_url }}">{{ obj.user.get_full_name }}</a></h3>

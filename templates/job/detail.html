@@ -36,11 +36,11 @@
             <div class="col-md-8 text-right">
               <h4 class="card-title">{{ job.company }}
               </h4>
-              <h6 class="card-subtitle mb-2 text-muted">{{ job.country }}, {{ job.location }}</h6>
-              <p class="card-text">{{ job.opening }} Opening{{ pluralize }}</p>
+              <h6 class="card-subtitle mb-2 text-muted">{{ job.location.country }}, {{ job.location }}</h6>
+              <p class="card-text">{{ job.opening }} Opening{{ job.opening|pluralize }}</p>
             </div>
             <div class="col-md-4 col-sm-12 ">
-              <img alt="..." class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+              <img alt="logo here" class="d-block w-100 img-responsive" src='{{ job.company.logo.url }}'>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
   <div class="row">
     <div class="col-md-8">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body clearfix">
           <h2> Job Description </h2>
           <div class=" content-markdown"> {{ job.description }}</div>
           <hr/>
@@ -78,13 +78,23 @@
           <a class="btn btn-primary" href="{{ job.url }}" type="button">More Info
           </a>
           {% endif %}
-          <a class="btn btn-primary" href="{% url 'pinax_messages:inbox' %}"><i class="fa fa-envelope"></i> Apply for
-            this job now
+          {% if job.user != request.user %}
+          <a class="btn btn-primary" href="{% url 'pinax_messages:message_user_create' user_id=object.user.id %}"><i
+                  class="fa fa-envelope"></i> Send Message
           </a>
+          {% endif %}
+          <div class="pull-right">
+            <div class="social-footer">
+              <span> Share on </span>
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
+                <i class="fa fa-facebook icon-round"></i></a>
+              <a href="https://twitter.com/home?status={{ job.title }}%20{{ request.build_absolute_uri }}/">
+                <i class="fa fa-twitter icon-round"></i></a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-
     <div class="col-md-4">
       <div class="card">
         <div class="card-body">

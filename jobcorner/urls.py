@@ -17,12 +17,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.flatpages.views import flatpage
 from django.urls import path, include
 from django_filters.views import FilterView
 
-from homepage.views import HomeIndex, UserFilter
+from homepage.views import HomeIndex, UserFilter, Dashboard
 
 urlpatterns = [
+    path('', Dashboard.as_view(), name='dashboard'),
     path('', HomeIndex.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
@@ -33,8 +35,7 @@ urlpatterns = [
     path('job/', include('job.urls', namespace='job')),
     path('resume/', include('resume.urls', namespace='resume')),
     path('reviews/', include('reviews.urls', namespace='reviews')),
-    path('pages/', include('django.contrib.flatpages.urls')),
-    # path('search/', search, name='search'),
+    path('blog/', include('blog.urls', namespace='blog')),
     path('search/', FilterView.as_view(filterset_class=UserFilter, template_name='search.html'), name='search'),
     path('reset/done/', auth_views.PasswordResetDoneView.as_view(template_name='accounts/password_reset_done.html'),
          name='password_reset_done'),
@@ -43,9 +44,12 @@ urlpatterns = [
                                                         subject_template_name='accounts/password_reset_subject.txt'),
          name='password_reset'),
     path("likes/", include("pinax.likes.urls", namespace="pinax_likes")),
-    path('activity/', include('actstream.urls')),
+    path('notifications/', include("pinax.notifications.urls", namespace="notifications")),
     path('messages/', include("pinax.messages.urls", namespace="pinax_messages")),
 
+    path('about-us/', flatpage, {'url': '/about-us/'}, name='about'),
+    path('license/', flatpage, {'url': '/license/'}, name='license'),
+    path('terms/', flatpage, {'url': '/terms/'}, name='terms'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

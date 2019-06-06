@@ -4,16 +4,8 @@
 
 
 {% block title %} Login  | {{ block.super }} {% endblock %}
-{% block lead %}
-Login
-{% endblock %}
-
-{% block jumbotron %}
-<a class="btn btn-common">
- Login
-</a>
+{% block breadcrumb %}
 {% endblock  %}
-
 
 
 {% block content %}
@@ -22,34 +14,62 @@ Login
   {% for error in form.non_field_errors %}
   <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
   {% endfor %}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  <button aria-label="Close" class="close" data-dismiss="alert" type="button">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 {% endif %}
+<div class="mb-60"></div>
+<div class="header-style-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 ">
+        <h3 class="header-title animated fadeInDown text-white"><span class="text-primary">Job-Cycle </span>
+          - Sign up for More Features
+        </h3>
 
-<div class="container">
-<!-- log forms -->
-<!-- form 1 -->
-<div class="row">
-  <!-- Start login form  -->
-  <div class="col-lg-6 col-md-6 col-xs-12">
-    <div id="login-form">
-      <h3 class="log-title">Log In</h3>
-      <div class="form-group">
-                  <form class="login-form" method='POST' action='' enctype='multipart/form-data' novalidate>
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{{ next }}">
-            {% crispy form %}
-          </form>
-          <div class="clearfix"></div>
+        <ol class="unorderedlist ">
+          <li class="text-white">
+            As a non employer add CV
+          </li>
+          <li class="text-white">
+            Review companies as satisfied
+          </li>
+          <li class="text-white">
+            As employer add Companies
+          </li>
+          <li class="text-white">
+            Add Job Vacancies
+          </li>
+        </ol>
+        <div class="modal-body">
+          <a href="{% url 'accounts:normal_user_signup' %}" class="btn btn-success btn-lg" role="button">I'm not
+            employer</a>
+          <a href="{% url 'accounts:employer_signup' %}" class="btn btn-warning btn-lg" role="button">I'm an
+            employer</a>
+          <hr/>
+          <div>
+
+          </div>
         </div>
-      <a href="{% url 'accounts:password_reset' %}" class="forgot-password">Forgot your Password? |</a>
-      <a href='{% url "accounts:signup" %}'>Don't have an account?</a>
+      </div>
+      <div class="col-xs-12 col-sm-6">
+        <div id="login-form">
+          <h3 class="log-title">Log In</h3>
+          <div class="form-group">
+            <form class="login-form" method='POST' action='' enctype='multipart/form-data' novalidate>
+              {% csrf_token %}
+              <input type="hidden" name="next" value="{{ next }}">
+              {% crispy form %}
+            </form>
+            <div class="clearfix"></div>
+          </div>
+          <a href="{% url 'accounts:password_reset' %}" class="forgot-password">Forgot your Password?</a>
+        </div>
+        <div class="mb-60"></div>
+      </div>
     </div>
   </div>
 </div>
-  <!-- End login form 1 -->
-</div>
-
+<div class="mb-60"></div>
 {% endblock content %}

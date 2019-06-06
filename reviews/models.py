@@ -2,19 +2,20 @@ from accounts.models import User
 from company.models import Company
 from django.db import models
 
+RATING_CHOICES = (
+    (1, ''),
+    (2, ''),
+    (3, ''),
+    (4, ''),
+    (5, ''),
+)
+
 
 class Review(models.Model):
-    RATING_CHOICES = (
-        (1, '1'),
-        (2, '2'),
-        (3, '3'),
-        (4, '4'),
-        (5, '5'),
-    )
     company = models.ForeignKey(Company, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=600)
-    rating = models.IntegerField(choices=RATING_CHOICES)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=1)
 
     publish = models.DateTimeField('date published', auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)

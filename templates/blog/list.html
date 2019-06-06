@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %} Blog Posts | {{ block.super }} {% endblock %}
+{% block lead %}
+Blog Posts
+{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common breadcrumb-item active">
+Blog Posts
+</a>
+<a class="btn btn-common" href='{% url "blog:new" %}'>
+  new
+</a>
+{% endblock  %}
+
+{% block content %}
+
+
+  <!-- Start Blog Section 1 -->
+  <section class="blog">
+    <div class="container">
+      <div class="row">
+{% for obj in post %}
+        <div class="col-lg-4 col-md-6 col-xs-12 blog-item ">
+          <!-- Blog Item Starts -->
+          <div class="blog-item-wrapper clearfix">
+            <div class="blog-item-img">
+              <a href="{{ obj.get_absolute_url }}">
+                {% if obj.image %}
+                <img src="{{ obj.image.url }}">
+              {% else %}
+              <img src="">
+              {% endif %}
+              </a>
+            </div>
+            <div class="blog-item-text">
+              <h3>
+                <a href="#">{{ obj.title }}</a>
+              </h3>
+              <div class="meta-tags">
+                <span class="date"><i class="lnr lnr-calendar-full"></i>on {{ obj.publish }}</span>
+                <span class="comments"><a href="#"><i class="lnr lnr-bubble"></i> 24 Comments</a></span>
+              </div>
+              <div>
+              {{ obj.content|truncatechars:100}}</div>
+              <a href="{{ obj.get_absolute_url }}" class=" pull-right btn btn-common btn-rm">Read More</a>
+            </div>
+          </div>
+          <!-- Blog Item Wrapper Ends-->
+        </div>
+{% endfor %}
+      </div>
+    </div>
+  </section>
+  <!-- End Blog Section 1 -->
+
+  <div class="mb-60"></div>
+
+{% endblock %}

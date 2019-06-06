@@ -24,3 +24,4 @@ class CountryDetail(DetailView):
     model = Country
     context_object_name = 'country'
     template_name = 'country/detail.html'
+

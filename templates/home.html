@@ -2,7 +2,6 @@
 {% load accounts_tags %}
 {% load company_tags %}
 {% load job_tags %}
-{% load job_tags %}
 {% load category_tags %}
 {% load review_tags %}
 {% load pinax_likes_tags %}
@@ -23,7 +22,14 @@
 
   <div class="features-wrap">
     <div class="row">
-      {% show_categories 4 %}
+      {% show_categories 6 %}
+      <hr/>
+      <div class="pull-right">
+        <a class="btn std-btn btn-sm btn-filled" href='{% url "category:list" %}' type="button">
+          More
+        </a>
+      </div>
+
     </div>
   </div>
 
@@ -36,6 +42,13 @@
   </div>
   <div class="row">
     {% show_latest_companies 4 %}
+    <hr/>
+    <div class="pull-right">
+      <a class="btn std-btn btn-sm btn-filled" href='{% url "company:list" %}'
+         type="button">
+        More
+      </a>
+    </div>
   </div>
 
   <div class="row">
@@ -63,21 +76,21 @@
         <span class="icon"><i class="fa fa-download"> </i></span>
         <h3 class="timer count-value" data-to="{% total_reviews %}" data-speed="1000">{% total_reviews %}</h3>
         <hr class="width25-divider">
-        <small class="count-title">Reviews</small>
+        <small class="count-title">Review{{ total_reviews|pluralize }}</small>
       </div>
 
       <div class="col-lg-3 col-md-6 col-xs-12 count-one">
         <span class="icon"><i class="fa fa-desktop"> </i></span>
         <h3 class="timer count-value" data-speed="1000" data-to="{% total_companies %}">{% total_companies %}</h3>
         <hr class="width25-divider">
-        <small class="count-title">Companies</small>
+        <small class="count-title">Companies{{ total_companies|pluralize }}</small>
       </div>
 
       <div class="col-lg-3 col-md-6 col-xs-12 count-one">
         <span class="icon"><i class="fa fa-coffee"> </i></span>
         <h3 class="timer count-value" data-speed="1000" data-to="{% total_jobs %}">{% total_jobs %} </h3>
         <hr class="width25-divider">
-        <small class="count-title">Jobs</small>
+        <small class="count-title">Job{{ total_jobs|pluralize }}</small>
       </div>
     </div>
   </div>

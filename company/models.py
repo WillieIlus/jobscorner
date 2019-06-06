@@ -4,14 +4,15 @@ from builtins import super
 
 import np
 import numpy as np
-from accounts.models import User
-from category.models import Category
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from location.models import Location
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
+
+from accounts.models import User
+from category.models import Category
+from location.models import Location
 
 
 class TaggedCompany(TaggedItemBase):
@@ -41,6 +42,16 @@ class Company(models.Model):
     class Meta:
         ordering = ('name',)
         verbose_name_plural = "companies"
+
+    _metadata = {
+        'title': 'name',
+        'description': 'description',
+        'image': 'get_meta_image',
+    }
+
+    def get_meta_image(self):
+        if self.image:
+            return self.image.url
 
     def average_rating(self):
         all_ratings = list(map(lambda x: x.rating, self.review_set.all()))
@@ -85,6 +96,7 @@ class OpeningHours(models.Model):
     start and end times of opening slots.
     """
     company = models.ForeignKey(Company, verbose_name='Company', related_name='open_hours', on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=50, unique=True)
     weekday = models.IntegerField('Weekday', choices=WEEKDAYS)
     from_hour = models.TimeField('Opening')
     to_hour = models.TimeField('Closing')
@@ -101,6 +113,13 @@ class OpeningHours(models.Model):
             'from_hour': self.from_hour,
             'to_hour': self.to_hour
         }
+
+    def save(self, *args, **kwargs):
+        # slug = slugify(("%s + %s" %self.company.name, %weekday))
+        # slug = slugify(self.company.name)
+        slug = slugify("%s - %s" % (self.company.name, self.weekday))
+        self.slug = slug
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('company:detail', kwargs={"slug": self.company.slug})

@@ -1,20 +1,26 @@
 {% extends "pinax/messages/base.html" %}
+{% load crispy_forms_tags %}
 
 {% block body_class %}{{ block.super }} pinax-messages-create{% endblock %}
 
-{% load bootstrap %}
 
-{% block body %}
-<div class="pinax-messages-create-container">
-    <h2>New Message</h2>
-
-    <form class="comment-form" action="{% url "pinax_messages:message_create" %}" method="post">
+{% block content %}
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">New Message
+      </h5></div>
+    <div class="modal-body">
+      <form action="{% url 'pinax_messages:message_create' %}" class="comment-form" method="post">
         {% csrf_token %}
-        {{ form|bootstrap }}
+        {{ form|crispy }}
         <div class="form-actions">
-            <a href="{% url "pinax_messages:inbox" %}" class="cancel">Cancel</a>
-            <button>Send</button>
+          <a class='btn btn-warning' href="{% url 'pinax_messages:inbox' %}">Cancel</a>
+          <button class='btn btn-primary'>Send</button>
         </div>
-    </form>
+      </form>
+    </div>
+  </div>
 </div>
+
 {% endblock %}

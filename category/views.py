@@ -8,6 +8,7 @@ from category.models import Category
 
 class CategoryList(ListView):
     model = Category
+    paginate_by = 1
     context_object_name = "category"
     template_name = 'category/list.html'
 
@@ -16,6 +17,7 @@ class CategoryDetail(DetailView):
     model = Category
     context_object_name = "category"
     template_name = 'category/detail.html'
+
 
 
 class CategoryCreate(LoginRequiredMixin, CreateView):

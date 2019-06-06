@@ -23,6 +23,12 @@ class Location(models.Model):
         verbose_name_plural = "locations"
         ordering = ['name']
 
+
+    _metadata = {
+        'title': 'name',
+        'description': 'description',
+    }
+
     def __str__(self):
         return self.name
 

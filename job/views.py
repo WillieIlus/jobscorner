@@ -1,15 +1,17 @@
 # Job views
-from accounts.decorators import UserRequiredMixin
-from company.models import Company
+from urllib.parse import quote_plus
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView, UpdateView, CreateView, DeleteView
+
+from accounts.decorators import UserRequiredMixin
+from company.models import Company
+from .filters import JobFilter
 from .forms import JobForm
 from .models import Job
-
-from .filters import JobFilter
 
 
 class JobCreate(LoginRequiredMixin, CreateView):
@@ -78,9 +80,10 @@ class JobDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['share_string'] = quote_plus(str(self.model.description))
         context['related'] = self.object.tags.similar_objects()[:4]
+        # context['meta'] = self.get_object().as_meta(self.request)
         return context
-
 
 
 class JobDelete(LoginRequiredMixin, UserRequiredMixin, DeleteView):

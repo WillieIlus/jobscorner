@@ -22,10 +22,8 @@
     <p class="lead">{{ location.description }}</p>
     <hr/>
     <p>
-      <i class="fas fa-user-tie"></i> <a> Wilson Irungu </a> |
-      <span><i class="far fa-calendar-alt"></i></span> at Jan/17/2019 |
-      <span><i class="fas fa-tags"></i></span> Tags: money, cash, bank, |
-      <span><i class="far fa-money-bill-alt"></i></span> Salary : 7000
+      <i class="fas fa-user-tie"></i> <a> In {{ location.country.name }} </a> |
+      <span><i class="far fa-calendar-alt"></i></span> added on {{ location.publish }}
     </p>
     <div class="pull-right">
       <a href='{% url "location:edit" location.slug %}' type="button" class="btn btn-primary pull-right">Update

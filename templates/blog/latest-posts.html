@@ -1,0 +1,12 @@
+	{% for obj in latest_posts %}
+
+            <div class="blog-post-small first-post">
+              {% if obj.image %}
+              <img src="{{ obj.image.url }}">
+              {% else %}
+              <img src="">
+              {% endif %}
+              <a href="#">{{ obj.title }}</a>
+              <p>Posted on <a href="{{ obj.get_absolute_url }}" class="post-date">{{ obj.publish }}</a></p>
+            </div>
+  	{% endfor %}

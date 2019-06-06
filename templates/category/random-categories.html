@@ -1,0 +1,5 @@
+{% for obj in categories %}
+<div class="post-category">
+            <a href="#">{{ obj.name }} <span class="pull-right">{{ obj.post.count }}</span></a>
+          </div>
+{% endfor %}

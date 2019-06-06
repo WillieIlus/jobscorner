@@ -3,6 +3,8 @@
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
 {% load pinax_likes_tags %}
+{% load activity_tags %}
+
 {% block title %} {{ profile.user.username }}'s Profile  | {{ block.super }} {% endblock %}
 {% block breadcrumb %}
 {% endblock  %}
@@ -48,173 +50,152 @@
   </header>
 </div>
 <!-- Headers End -->
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    &nbsp;
-    <!-- About Section Start -->
-    <section id="about" class="section-padding">
-      <div class="container">
-        {% if profile %}
-        <div class="row">
+  <hr/>
+  <a href="{% follow_url other_user %}">
+    {% if request.user|is_following:another_user %}
+    You are already following {{ another_user }}
+    {% endif %}
+
+
+    {% if request.user|is_following:other_user %}
+    stop following
+    {% else %}
+    follow
+    {% endif %}
+  </a>
+
+
+<a href="{% actor_url request.user %}">View your actions</a>
+<a href="{% actor_url another_user %}">{{ another_user }}'s actions</a>
+  <hr/>
+{% if profile %}
+<!--simple card 10-->
+<div class="container">
+  <div class="card mx-auto col-md-12 mb-2 ">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-3 col-sm-12">
           {% if profile.thumbnail %}
-          <div class="col-md-4 col-sm-12">
-            <div class="img-thumb wow fadeInLeft" data-wow-delay="0.3s">
-              <img class="img-fluid" src='{{ profile.thumbnail.url }}' alt="">
-            </div>
+          <img class="img-fluid" src='{{ profile.thumbnail.url }}' alt="">
+          {% endif %}
+        </div>
+        <div class="pull-right col-md-9 col-sm-12">
+          <div class="card-title">
+            <strong>{{ profile.user.get_full_name }}</strong>
+          </div>
+          <div class="card-subtitle">
+            {{ profile.title }}
+          </div>
+          <p>
+            {{ profile.location }}, {{ profile.location.country.name }}
+          </p>
+          <p>
+            {{ profile.user.email }}, {{ profile.phone }}
+          </p>
+          <a href='{% url "resume:pdf" profile.slug %}' class="btn btn-common"><i class="icon-paper-clip"></i>
+            Download Resume
+          </a>
+          {% if profile.user == request.user %}
+          <a href='' class="btn btn-danger"><i class="icon-speech"></i> Edit Resume </a>
+          {% endif %}
+          {% else %}
+          <a href='{% url "resume:new" %}' type="button" class="btn btn-success btn-lg">
+            Add Resume
+          </a>
+        </div>
+        {% endif %}
+        <hr/>
+        <div class="col-md-12">
+          <h2 class="card-title">
+            About Me
+          </h2>
+          <p class="text-muted">
+            {{ profile.bio }}
+          </p>
+          <hr/>
+
+          {% if profile.user == request.user %}
+          <div class="pull-right">
+            <a href='{% url "resume:new_skills" profile.slug %}' type="button"
+               class="btn std-btn btn-sm btn-filled">
+              Add Skills
+            </a>
           </div>
           {% endif %}
-          <div class="col-md-8 col-sm-12 col-xs-12">
-            <div class="profile-wrapper wow fadeInRight" data-wow-delay="0.3s">
-              <h3>My Profile</h3>
-              <p>{{ profile.bio }}</p>
-              <div class="about-profile">
-                <ul class="admin-profile">
-                  <li><span class="pro-title"> Name </span> <span
-                          class="pro-detail">{{ profile.user.get_full_name }}</span>
-                  </li>
-                  <li><span class="pro-title"> Birthdate:  </span> <span
-                          class="pro-detail">{{ profile.birth_date }}</span></li>
-                  <li><span class="pro-title"> Country </span> <span class="pro-detail">{{ profile.location.country.name }}</span>
-                  </li>
-                  <li><span class="pro-title"> Location </span> <span
-                          class="pro-detail">{{ profile.location }}</span>
-                  </li>
-                  <li><span class="pro-title"> e-mail </span> <span class="pro-detail">{{ profile.user.email }}</span>
-                  </li>
-                  <li><span class="pro-title"> Phone </span> <span class="pro-detail">{{ profile.phone }}</span>
-                  </li>
-                </ul>
-              </div>
-              <div><span>Like</span></div>
-              <a href='{% url "resume:pdf" profile.slug %}' class="btn btn-common"><i class="icon-paper-clip"></i>
-                Download Resume
-              </a>
-              {% if profile.user == request.user %}
-              <a href='' class="btn btn-danger"><i class="icon-speech"></i> Edit Resume </a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-        {% else %}
-        <a href='{% url "resume:new" %}' type="button" class="btn btn-success btn-lg">
-          Add Resume
-        </a>
-        {% endif %}
-      </div>
-    </section>
-    <!-- About Section End -->
+          {% for obj in profile.skills.all %}
+          <h2 class="card-title">
+            Skills
+          </h2>
+          <h5 class="card-title">
+            {{ obj.name }}
+          </h5>
+          <h6 class="card-subtitle">
+            {{ obj.get_level_display }}
+          </h6>
+          <p class="text-muted">
+            {{ obj.description }}
+          </p>
+          {% if profile.user == request.user %}
+          <a href='' class="btn btn-danger btn-sm"><i class="icon-speech"></i> Edit </a>
+          {% endif %}
+          {% endfor %}
+          <hr/>
 
-    <!-- Resume Section Start -->
-    <div id="resume" class="section-padding">
-      <div class="container">
-        <div class="row">
-          <div class="card-2 col-lg-6 col-md-12 col-sm-12">
-            <div class="header-title animated fadeInUp" data-wow-delay="0.3s">
-              <ul class="timeline">
-                <div class="row">
-                  <i class="icon-graduation"></i>
-                  <h2 class="title">Skills</h2>
-                </div>
-                <div class="row">
-                  {% if profile.user == request.user %}
-                  <div class=" card-block">
-                    <div class="pull-right">
-                    <a href='{% url "resume:new_skills" profile.slug %}' type="button"
-                       class="btn std-btn btn-sm btn-filled">
-                      Add Skills
-                    </a>
-                    </div>
-                  </div>
-                  {% endif %}
-                </div>
-                {% for obj in profile.skills.all %}
-                <li>
-                  <div class="card-block">
-                    <h3 class="card-title">{{ obj.name }}</h3>
-                    <span>{{ obj.level }}</span>
-                    <p class="description">{{ obj.description }}</p>
-                  </div>
+          <h2 class="card-title">
+            Experience
+          </h2>
+          {% if profile.user == request.user %}
+          <div class="pull-right">
+            <a href='{% url "resume:new_experience" profile.slug %}' type="button"
+               class="btn std-btn btn-sm btn-filled">
+              Add Experience
+            </a>
+          </div>
+          {% endif %}
+          {% for obj in profile.experience.all %}
+          <h4>
+            {{ obj.role }} - {{ obj.company }}
+          </h4>
+          <span> {{ obj.start_date }}- {{ obj.completion_date }} </span>
+          <p class="text-muted">
+            {{ obj.description }}
+          </p>
+          {% if profile.user == request.user %}
+          <a href='' class="btn btn-sm btn-danger"><i class="icon-speech"></i> Edit </a>
+          {% endif %}
+          {% endfor %}
+          <hr/>
 
-                  {% if profile.user == request.user %}
-                  <a href='' class="btn btn-danger btn-sm"><i class="icon-speech"></i> Edit </a>
-                  {% endif %}
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
+          <h2 class="card-title">
+            Education
+          </h2>
+          <div class="pull-right">
+            {% if profile.user == request.user %}
+            <a href='{% url "resume:new_education" profile.slug %}' type="button"
+               class="btn std-btn btn-sm btn-filled">
+              Add Education
+            </a>
           </div>
-          <div class="card-2 col-lg-6 col-md-12 col-sm-12">
-            <div class="header-title animated fadeInUp" data-wow-delay="0.6s">
-              <ul class="timeline">
-                <li>
-                  <i class="icon-briefcase"></i>
-                  <h2 class="timelin-title">Experience</h2>
-                </li>
-                <li>
-                  <div class=" card-block pull-right">
-                    {% if profile.user == request.user %}
-                    <a href='{% url "resume:new_experience" profile.slug %}' type="button"
-                       class="btn std-btn btn-sm btn-filled">
-                      Add Experience
-                    </a>
-                    {% endif %}
-                  </div>
-                </li>
-                {% for obj in profile.experience.all %}
-                <li>
-                  <div class="card-block">
-                    <h3 class="card-title">{{ obj.role }} - {{ obj.company }}</h3>
-                    <span>{{ obj.start_date }}- {{ completion_date }}</span>
-                    <p class="description">{{ obj.description }}</p>
-                  </div>
-                  {% if profile.user == request.user %}
-                  <a href='' class="btn btn-sm btn-danger"><i class="icon-speech"></i> Edit </a>
-                  {% endif %}
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="card-2 col-md-12 col-sm-12">
-            <div class="header-title animated fadeInUp" data-wow-delay="0.3s">
-              <ul class="timeline">
-                <li>
-                  <i class="icon-graduation"></i>
-                  <h2 class="timelin-title">Education</h2>
-                </li>
-                <li>
-                  <div class=" card-block pull-right">
-                    {% if profile.user == request.user %}
-                    <a href='{% url "resume:new_education" profile.slug %}' type="button"
-                       class="btn std-btn btn-sm btn-filled">
-                      Add Education
-                    </a>
-                    {% endif %}
-                  </div>
-                </li>
-                {% for obj in profile.education.all %}
-                <li>
-                  <div class="card-block">
-                    <h3 class="card-title">{{ obj.major }} - {{ obj.school }}</h3>
-                    <span>{{ obj.start_date }}- {{ completion_date }}</span>
-                    <p class="description">{{ obj.summary }}</p>
-                  </div>
-                  {% if profile.user == request.user %}
-                  <a href='' class="btn btn-sm btn-danger"><i class="icon-speech"></i> Edit </a>
-                  {% endif %}
-                </li>
-                {% endfor %}
-              </ul>
-            </div>
-          </div>
+          {% endif %}
+          {% for obj in profile.education.all %}
+          <h4>
+            {{ obj.major }} - {{ obj.school }}
+          </h4>
+          <span> {{ obj.start_date }}- {{ obj.completion_date }} </span>
+          <p class="text-muted">
+            {{ obj.summary }}
+          </p>
+          {% if profile.user == request.user %}
+          <a href='' class="btn btn-sm btn-danger"><i class="icon-speech"></i> Edit </a>
+          {% endif %}
+          {% endfor %}
         </div>
       </div>
-      <!-- Resume Section End -->
     </div>
-
-    <div class="mb-60"></div>
-
-    {% endblock %}
+  </div>
+</div>
+</div>
+<!--end of simple card 10-->
+<div class="mb-60"></div>
+{% endblock %}
 

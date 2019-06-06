@@ -15,6 +15,13 @@
       </div>
       <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="navbar-nav mr-auto w-100 justify-content-end clearfix">
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "dashboard" %}'>
+              My Dashboard
+            </a>
+          </li>
+          {% endif %}
           <li class="nav-item">
             <a class="nav-link" href='{% url "home" %}'>
               Home
@@ -38,6 +45,11 @@
           <li class="nav-item">
             <a class="nav-link" href='{% url "reviews:list" %}'>
               Reviews
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href='{% url "blog:list" %}'>
+              Blog
             </a>
           </li>
           <li class="nav-item">
@@ -71,6 +83,13 @@
 
     <!-- Mobile Menu Start -->
     <ul class="mobile-menu navbar-nav">
+      {% if request.user.is_authenticated %}
+      <li>
+        <a class="page-scroll active" href='{% url "dashboard" %}'>
+          My Dashboard
+        </a>
+      </li>
+      {% endif %}
       <li>
         <a class="page-scroll" href='{% url "home" %}'>
           Home
@@ -94,6 +113,11 @@
       <li>
         <a class="page-scroll" href='{% url "reviews:list" %}'>
           Reviews
+        </a>
+      </li>
+      <li>
+        <a class="page-scroll" href='{% url "blog:list" %}'>
+          Blog
         </a>
       </li>
       <li>

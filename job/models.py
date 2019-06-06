@@ -39,6 +39,12 @@ class Job(models.Model):
     def __str__(self):
         return self.title
 
+    _metadata = {
+        'title': 'title',
+        'description': 'description',
+    }
+
+
     def save(self, *args, **kwargs):
         slug = slugify(self.title)
         self.slug = slug

@@ -15,6 +15,11 @@ class Category(models.Model):
         verbose_name_plural = "categories"
         ordering = ['name']
 
+    _metadata = {
+        'title': 'name',
+        'description': 'description',
+    }
+
     def __str__(self):
         return self.name
 

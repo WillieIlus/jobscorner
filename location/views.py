@@ -35,3 +35,4 @@ class LocationDetail(DetailView):
     model = Location
     context_object_name = 'location'
     template_name = 'location/detail.html'
+

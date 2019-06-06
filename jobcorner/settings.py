@@ -51,11 +51,12 @@ INSTALLED_APPS = [
     "pinax.likes",
     "pinax.messages",
     "pinax.testimonials",
-    "pinax.blog",
-    "pinax.images",
     "pinax.notifications",
+    'hitcount',
+    'meta',
 
     'accounts',
+    'blog',
     'category',
     'company',
     'country',
@@ -68,7 +69,7 @@ INSTALLED_APPS = [
     'actstream',
 
 ]
-SITE_ID = 1
+SITE_ID = 3
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -103,6 +104,8 @@ WSGI_APPLICATION = 'jobcorner.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+HITCOUNT_KEEP_HIT_ACTIVE = {'days': 1}
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -130,8 +133,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-LOGOUT_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'dashboard'
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -190,13 +193,6 @@ AUTHENTICATION_BACKENDS = [
     "pinax.likes.auth_backends.CanLikeBackend",
 ]
 
-ACTSTREAM_SETTINGS = {
-    'MANAGER': 'accounts.managers.MyActionManager',
-    'FETCH_RELATIONS': True,
-    'USE_PREFETCH': True,
-    'USE_JSONFIELD': True,
-    'GFK_FETCH_DEPTH': 1,
-}
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Static files (CSS, JavaScript, Images)

@@ -16,12 +16,13 @@ from .models import Profile, Skill, Experience, Education
 
 
 class ProfileForm(forms.ModelForm):
+    title = forms.CharField(label='', required=True, widget=forms.TextInput(attrs={'placeholder': 'Your Title'}))
     bio = forms.CharField(label='', required=True, widget=forms.Textarea(attrs={
         'placeholder': 'Give a good description about yourself, help people understand your strength, and skills'}))
     location = forms.ModelChoiceField(label='', required=False, queryset=Location.objects.all(),
                                       empty_label="Choose Location")
     birth_date = forms.DateField(label='', required=False, widget=forms.DateInput(attrs={'placeholder': 'Birth Date'}))
-    thumbnail = forms.ImageField(label='', required=False, widget=forms.FileInput(attrs={'placeholder': 'Thumbnail'}))
+    thumbnail = forms.ImageField(label='Thumbnail', required=False, widget=forms.FileInput(attrs={'placeholder': 'Thumbnail'}))
     phone = forms.CharField(label='', required=False, widget=forms.NumberInput(attrs={'placeholder': 'phone'}))
     website = forms.URLField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'website'}))
     facebook = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'facebook'}))
@@ -35,7 +36,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('bio', 'location', 'birth_date', 'thumbnail', 'phone', 'website', 'facebook', 'instagram', 'twitter',
+        fields = ('title',  'bio', 'location', 'birth_date', 'thumbnail', 'phone', 'website', 'facebook', 'instagram', 'twitter',
                   'linkedin', 'google', 'pinterest')
 
     def __init__(self, *args, **kwargs):
@@ -43,17 +44,14 @@ class ProfileForm(forms.ModelForm):
 
         self.helper = FormHelper()
         self.helper.layout = Layout(
+            'title',
             'bio',
             Row(
                 Column('location', css_class='mt-10 form-group col-md-4 mb-0'),
                 Column('birth_date', css_class='mt-10 form-group col-md-8 mb-0'),
                 css_class='form-row'
             ),
-            Row(
-                Column('thumbnail', css_class='mt-10 form-group col-md-4 mb-0'),
-                Column('phone', css_class='mt-10 form-group col-md-8 mb-0'),
-                css_class='form-row'
-            ),
+            'thumbnail',
             Row(
                 Column('phone', css_class='mt-10 form-group col-md-4 mb-0'),
                 Column('website', css_class='mt-10 form-group col-md-8 mb-0'),

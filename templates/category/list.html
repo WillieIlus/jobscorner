@@ -6,16 +6,16 @@
 Category List
 {% endblock %}
 {% block jumbotron %}
-        <a class="btn btn-common breadcrumb-item active">
-          Category list
-        </a>
-        <a class="btn btn-common" href='{% url "category:new" %}'>
-          new
-        </a>
+<a class="btn btn-common breadcrumb-item active">
+  Category list
+</a>
+<a class="btn btn-common" href='{% url "category:new" %}'>
+  new
+</a>
 {% endblock  %}
 
 {% block content %}
-      {% if category %}
+{% if category %}
 <div class="container">
   <div class="features-wrap">
     <div class="row">
@@ -31,12 +31,57 @@ Category List
           <a href="{{ obj.get_absolute_url }}" class="btn card-btn btn-common">Learn More</a>
         </div>
       </div>
-    <!-- End featured -->
-    {% endfor %}
-          </div>
+      <!-- End featured -->
+      {% endfor %}
+    </div>
   </div>
 </div>
-  {% else %}
+<div class="container">
+  <nav aria-label="modal">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#" aria-label="Previous">
+          <span aria-hidden="true">«</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#">1</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#">2</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#">3</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#">4</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#">5</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="http://preview.uideck.com/items/material/buttons.html#" aria-label="Next">
+          <span aria-hidden="true">»</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+<div class="pagination">
+<span class="step-links">
+{% if category.has_previous %}
+<a href="?page={{ category.previous_page_number }}">previous</a>
+{% endif %}
+<span class="current">
+Page {{ category.number }} of {{ paginator.num_pages }}.
+</span>
+{% if category.has_next %}
+<a href="?page={{ category.next_page_number }}">next</a>
+{% endif %}
+</span>
+</div>
+
+
+{% else %}
 
 <div class="container">
   <div class="modal-dialog" role="document">
@@ -50,5 +95,5 @@ Category List
     </div>
   </div>
 </div>
-  {% endif %}
+{% endif %}
 {% endblock %}

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
+{% load accounts_tags %}
 
 {% block title %}  Company List  | {{ block.super }} {% endblock %}
 {% block breadcrumb %}
@@ -21,7 +22,7 @@
             <h3 class="header-title animated fadeInDown"><span class="text-primary">Companies</span> - Best Companies
               are listed here
             </h3>
-             <a  class="btn btn-lg btn-border animated fadeInUp" href='{% url "company:new" %}'>add
+            <a class="btn btn-lg btn-border animated fadeInUp" href='{% url "company:new" %}'>add
               your company here</a>
             <form method="get">
               <div class="col-md-8 col-sm-12">
@@ -52,66 +53,129 @@
 
 <div class="mb-60"></div>
 
-{% if filter.qs %}
-{% for obj in filter.qs %}
 <!--simple card-->
 <div class="container">
-  <div class="card mx-auto col-md-12 mb-2 ">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-4 col-sm-12">
-          {% if obj.logo %}
-          <a href="{{ obj.get_absolute_url }}">
-            <img class="d-block w-100" src='{{ obj.logo.url }}'/>
-          </a>
-          {% else %}
-          <a href="{{ obj.get_absolute_url }}">
-            <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
-          </a>s
-          {% endif %}
-        </div>
-        <div class="pull-right col-md-8 col-sm-12">
-          <div class="col-md-12 post-header-line">
-            <h4 class="card-title">
+  <div class="row">
+
+    <div class=" clearfix col-md-4 mb-2 pull-left">
+      <div class="card-body">
+                <div class="filters panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="card">
+              <h6 class=" card-body panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseGenres">
+                  Filter by Cateogry
+                </a>
+              </h6>
+            </div>
+            <div id="collapseGenres" class="panel-collapse collapse in">
+              <div class="panel-body">
+                <div class="list-group">
+                  <a class="list-group-item{% if not facets.selected.cateory %} active{% endif %}"
+                     href="{{ modify_query  }}">All</a>
+                  {% for cat in facets.catego.category %}
+                  <a class="list-group-item{% if facets.selected.category == cat %} active{% endif %}"
+                     href="{{ modify_query  }}">{{ cat }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="card">
+              <h6 class="card-body panel-title">
+                <a data-toggle="collapse" data-parent="#accordion"
+                   href="#collapseDirectors">
+                  Filter by Location
+                </a>
+              </h6>
+            </div>
+            <div id="collapseDirectors" class="panel-collapse collapse">
+              <div class="panel-body">
+                <div class="list-group">
+                  <a class="list-group-item{% if not facets.selected.location %} active{% endif %}"
+                     href="{{ modify_query }}">All</a>
+                  {% for cat in facets.catego.location %}
+                  <a class="list-group-item{% if facets.selected.director == cat %} active{% endif %}"
+                     href="{{ modify_query }}">{{ cat }}</a>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="col-md-8 pull-right ">
+      {% if filter.qs %}
+      {% for obj in filter.qs %}
+      <div class="card mb-2">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-md-3 col-sm-12">
+              {% if obj.logo %}
               <a href="{{ obj.get_absolute_url }}">
-                {{ obj.name }}
+                <img class="d-block w-100" src='{{ obj.logo.url }}'/>
               </a>
-              <span class="badge badge-primary">{{ obj.category.name }}</span>
-            </h4>{% if obj.website %}
-            <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.website}}"> Website </a></h6>
-            {% endif %}
-            <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
-            <hr/>
-            <span><i class="fas fa-star"></i>{{ obj.average_rating | floatformat }} rating </span> |
-            <span><i class="fas fa-comments"></i>{{ obj.review_set.count }} reviews</span> |
-            {% if obj.location %}
-            <span><i class="fas fa-map-marker-alt"></i>{{ obj.location.name }} | {{ obj.location.country.name }}</span>
-            {% endif %}
-            <div class="pull-right">
-              <a class="card-link" href="{{ obj.get_absolute_url }}">
-                <button type="button" class="btn btn-primary">Details</button>
-              </a>
+              {% else %}
+              <a href="{{ obj.get_absolute_url }}">
+                <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+              </a>s
+              {% endif %}
+            </div>
+            <div class="pull-right col-md-9 col-sm-12">
+              <div class="col-md-12 post-header-line">
+                <h4 class="card-title">
+                  <a href="{{ obj.get_absolute_url }}">
+                    {{ obj.name }}
+                  </a>
+                  <span class="badge badge-primary">{{ obj.category.name }}</span>
+                </h4>{% if obj.website %}
+                <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.website}}"> Website </a></h6>
+                {% endif %}
+                <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
+                <hr/>
+                <span><i class="fas fa-star"></i>{{ obj.average_rating | floatformat }} rating </span> |
+                <span><i class="fas fa-comments"></i>{{ obj.review_set.count }} reviews</span> |
+                {% if obj.location %}
+                <span><i
+                        class="fas fa-map-marker-alt"></i>{{ obj.location.name }} | {{ obj.location.country.name }}</span>
+                {% endif %}
+                <div class="pull-right">
+                  <a class="card-link" href="{{ obj.get_absolute_url }}">
+                    <button type="button" class="btn btn-primary">Details</button>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      {% endfor %}
+      {% else %}
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">currently no jobs</h5>
+          </div>
+          <div class="modal-body">
+            <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Your Company </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
 <!--end of simple card-->
-{% endfor %}
-{% else %}
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title">currently no jobs</h5>
-    </div>
-    <div class="modal-body">
-      <a href="{% url 'company:new' %}" class="btn btn-success btn-lg" role="button">Add Your Company </a>
-    </div>
-  </div>
-</div>
-{% endif %}
+
 
 <div class="mb-60"></div>
 {% endblock content %}

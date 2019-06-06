@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %} >{{ flatpage.title }} | {{ block.super }} {% endblock %}
+{% block lead %}
+Welcome to you Dashboard{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common breadcrumb-item active">
+  Terms and Conditions</a>
+
+{% endblock  %}
+{% block content %}
+<div class="container">
+  <div class="col-md-8 col-sm-12">
+    <h3 class="text-muted">{{ flatpage.title }}</h3>
+    <div class="card">
+      {{ flatpage.content }}
+    </div>
+  </div>
+</div>
+<div class="mb-60">&nbsp;</div>
+
+
+{% endblock %}

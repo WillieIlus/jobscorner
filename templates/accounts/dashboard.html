@@ -1,0 +1,234 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load pinax_messages_tags %}
+{% block title %} Dashboard | {{ block.super }} {% endblock %}
+{% block lead %}
+Welcome to you Dashboard{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common breadcrumb-item active">
+  {% if user.is_employer %}
+  You have signup as an Employer
+  {% else %}
+  You have signup as a non Employer
+  {% endif %}
+</a>
+
+{% endblock  %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <!-- Tab panes -->
+    <div class="col-md-4 col-sm-12">
+      <div class="tab-content">
+        <h4> Dashboard </h4>
+        <hr/>
+        <h6 class="text-muted">{{ user.get_full_name }}</h6>
+        <br/>
+        <ul>
+          {% with user|unread_thread_count as user_unread %}
+          <li class="{% if user_unread %} unread {% endif %}">
+            <a href="{% url 'pinax_messages:inbox' %}"><i class="fa fa-envelope"></i> Messages
+            {% if user_unread %}<sup>{{ user_unread }}</sup>{% endif %}
+            </a>
+          </li>
+          {% endwith %}
+          <br/>
+          <li class="text-muted">
+            <a href="{% url 'accounts:account_edit' %}">My account</a>
+          </li>
+          {% if user.is_normal_user %}
+          <li class="text-muted">
+            <a href='{% url "resume:new" %}'>Add Resume</a>
+          </li>
+          {% endif %}
+          <hr/>
+          {% if user.is_employer %}
+          <li class="text-muted">
+            <a href='{% url "company:new" %}'>Add Company</a>
+          </li>
+          <li class="text-muted">
+            <a href='{% url "company:list" %}'>Add Jobs</a>
+          </li>
+          {% endif %}
+          <li class="text-muted">
+            <a href='{% url "company:list" %}'>Add Reviews</a>
+          </li>
+          <hr/>
+          <li class="text-muted">
+            <a href="{% url 'accounts:password_change' %}">Change Password</a>
+          </li>
+          <li class="text-muted">
+            <a href="{% url 'accounts:logout' %}">Sign Out</a>
+          </li>
+        </ul>
+      </div>
+      <br/>
+      <div class="tab-content">
+        <h4> Other </h4>
+        <hr/>
+        <ul>
+          <li class="text-muted">
+            <a href="{% url 'category:list' %}">Categories</a>
+          </li>
+          <li class="text-muted">
+            <a href='{% url "category:new" %}'>Add New Category</a>
+          </li>
+          <hr/>
+          <li class="text-muted">
+            <a href='{% url "location:list" %}'>Locations</a>
+          </li>
+          <li class="text-muted">
+            <a href='{% url "location:new" %}'>Add New Location</a>
+          </li>
+          <li class="text-muted">
+            <a href='{% url "country:list" %}'>Countries</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+    <!-- Tab panes -->
+
+    <!-- Tab panes -->
+    <div class="col-md-8 col-sm-12">
+      <div class="tab-content">
+        {% if user.is_normal_user %}
+        <div class="sub-title">
+          <span>My Resumes</span>
+        </div>
+        <div class="row card-body">
+          <div class="col-sm-12 tab-content  ">
+            <div class="row">
+              <div class="col-md-2 col-sm-12 ">
+                <a href="#" class="pull-left ">
+                  <img class="img-fluid d-block w-100" src='{{ user.profile.thumbnail.url }}' alt="">
+                </a>
+              </div>
+              <div class="col-md-10 col-sm-12">
+                <h4 class="title">
+                  <a href="{{user.profile.get_absolute_url }}">
+                    {{ user.get_full_name }}
+                  </a>
+                </h4>
+                <h6 class="text-muted">{{ user.profile.title }}</h6>
+                <br/>
+                <span>{{ user.profile.location.name }}</span>,
+                <span>{{ user.profile.location.country.name }}</span>
+                <span>{{ user.email }}</span>
+                <div class="pull-right"> Published: {{ user.profile.publish }}</div>
+                <br/>
+                <hr/>
+                <a href="{{user.profile.get_absolute_url }}" type="button"
+                   class="btn std-btn btn-sm btn-filled pull-right">
+                  Details
+                </a>
+                <a href="{{user.profile.get_absolute_url }}" type="button"
+                   class="btn std-btn btn-sm btn-warning-filled pull-right">
+                  Edit
+                </a>
+                <a href="{{user.profile.get_absolute_url }}" type="button"
+                   class="btn std-btn btn-sm btn-danger-filled pull-right">
+                  Delete
+                </a>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+        {% endif %}
+        {% if user.is_employer %}
+        <div class="mb-60">&nbsp;</div>
+        <div class="sub-title">
+          <span>My Companies</span>
+        </div>
+        {% if user.company_set %}
+        {% for obj in user.company_set.all %}
+        <div class="col-sm-12 tab-content  ">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-3 col-sm-12">
+                {% if obj.logo %}
+                <a href="{{ obj.get_absolute_url }}">
+                  <img class="d-block w-100" src='{{ obj.logo.url }}'/>
+                </a>
+                {% else %}
+                <a href="{{ obj.get_absolute_url }}">
+                  <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+                </a>s
+                {% endif %}
+              </div>
+              <div class="pull-right col-md-9 col-sm-12">
+                <div class="col-md-12 post-header-line">
+                  <h4 class="card-title">
+                    <a href="{{ obj.get_absolute_url }}">
+                      {{ obj.name }}
+                    </a>
+                    <span class="badge badge-primary">{{ obj.category.name }}</span>
+                  </h4>{% if obj.website %}
+                  <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.website}}"> Website </a></h6>
+                  {% endif %}
+                  <p class="card-text">{{ obj.description|truncatechars:100 }}...</p>
+                  <hr/>
+                  <span><i class="fas fa-star"></i>{{ obj.average_rating | floatformat }} rating </span> |
+                  <span><i class="fas fa-comments"></i>{{ obj.review_set.count }} reviews</span> |
+                  {% if obj.location %}
+                  <span><i
+                          class="fas fa-map-marker-alt"></i>{{ obj.location.name }} | {{ obj.location.country.name }}</span>
+                  {% endif %}
+                  <div class="pull-right">
+                    <a class="card-link" href="{{ obj.get_absolute_url }}">
+                      <button type="button" class="btn btn-primary">Details</button>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        {% endfor %}
+        {% endif %}
+        <div class="mb-60">&nbsp;</div>
+        <div class="sub-title">
+          <span>My Jobs </span>
+        </div>
+        {% if user.job %}
+        <div class="table-responsive mtb">
+          <table class="table table-bordered table-2 table-striped">
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Company</th>
+              <th>Openings</th>
+              <th>Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for obj in user.job.all %}
+            <tr>
+              <td><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></td>
+              <td>{{ obj.company.name }}</td>
+              <td> {{ obj.opening }} Opening{{ obj.opening|pluralize }}</td>
+              <td>{{ obj.publish|timesince }} ago</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
+        {% endif %}
+        <div class="mb-60">&nbsp;</div>
+
+
+      </div>
+    </div>
+  </div>
+  <!-- Tab panes -->
+</div>
+</div>
+
+<div class="mb-60">&nbsp;</div>
+
+
+{% endblock %}

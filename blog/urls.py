@@ -14,3 +14,5 @@ urlpatterns = [
     path('/<post_id>/add_comment/', add_comment, name='add_comment'),
 
 ]
+
+

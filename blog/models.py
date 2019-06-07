@@ -51,6 +51,7 @@ class Post(models.Model):
         'image': 'get_meta_image',
     }
 
+
     def get_meta_image(self):
         if self.image:
             return self.image.url

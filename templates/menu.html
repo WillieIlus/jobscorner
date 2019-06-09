@@ -67,6 +67,8 @@
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
             </div>
+          </li>
+        </ul>
       </div>
       </li>
       {% else %}
@@ -80,8 +82,8 @@
       </ul>
     </div>
     </div>
-
-    <!-- Mobile Menu Start -->
+  </nav>
+  <!-- Mobile Menu Start -->
     <ul class="mobile-menu navbar-nav">
       {% if request.user.is_authenticated %}
       <li>

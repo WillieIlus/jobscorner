@@ -1,5 +1,8 @@
 from builtins import super
 
+from crispy_forms.bootstrap import InlineRadios
+
+from blog.models import STATUS_CHOICES
 from category.models import Category
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit
@@ -28,6 +31,7 @@ class JobForm(forms.ModelForm):
     remote = forms.BooleanField(label='Remote', required=False, widget=forms.CheckboxInput()),
     opening = forms.IntegerField(label='', required=False,
                                  widget=forms.NumberInput(attrs={'placeholder': 'Vacancies Open'}))
+    status = forms.ChoiceField(label='status', required=False, widget=forms.RadioSelect, choices=STATUS_CHOICES)
     tags = forms.CharField(label='', required=False,
                            widget=forms.TextInput(attrs={'placeholder': 'Tags, A comma-separated list of tags'}))
 
@@ -37,7 +41,7 @@ class JobForm(forms.ModelForm):
         fields = (
             'title', 'salary', 'description', 'application_info', 'work_hours', 'contact_email', 'opening', 'url',
             'location',
-            'category', 'remote', 'tags')
+            'category', 'remote', "status", 'tags')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -65,6 +69,9 @@ class JobForm(forms.ModelForm):
                 Column('category', css_class='mt-10 form-group col-md-4 mb-0'),
                 Column('remote', css_id="default-switch", css_class='mt-10 col-md-4 mb-0'),
                 css_class='form-row'
+            ),
+            Row(
+                InlineRadios('status', css_class='mt-10 form-group col-md-6 mb-0'),
             ),
             Submit('submint', 'Submit'),
         )

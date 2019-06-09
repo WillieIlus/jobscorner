@@ -1,6 +1,6 @@
 from builtins import super
 
-
+from crispy_forms.bootstrap import InlineRadios
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
@@ -35,8 +35,8 @@ class PostForm(ModelForm):
             'image',
             'content',
             Row(
-                Column('category', css_class='mt-10 form-group col-md-6 mb-0'),
-                Column('status', css_class='mt-10 form-group col-md-6 mb-0'),
+                Column('category', css_class='mt-10 form-group col-md-5 mb-0'),
+                InlineRadios('status', css_class='mt-10 form-group col-md-6 mb-0'),
                 css_class='form-row'
             ),
             'tags',

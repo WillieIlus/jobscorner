@@ -7,9 +7,12 @@
 # from category.models import Category
 # from job.models import Job
 # from location.models import Location
+from crispy_forms.bootstrap import InlineRadios
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, Submit
 from django import forms
+
+from blog.models import STATUS_CHOICES
 from location.models import Location
 
 from .models import Profile, Skill, Experience, Education
@@ -30,6 +33,7 @@ class ProfileForm(forms.ModelForm):
     twitter = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'twitter'}))
     linkedin = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'linkedin'}))
     google = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'google plus'}))
+    status = forms.ChoiceField(label='status', required=False, widget=forms.RadioSelect, choices=STATUS_CHOICES)
     pinterest = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'pinterest'}))
     tags = forms.CharField(label='', required=False,
                            widget=forms.TextInput(attrs={'placeholder': 'Tags, A comma-separated list of tags'}))
@@ -37,7 +41,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('title',  'bio', 'location', 'birth_date', 'thumbnail', 'phone', 'website', 'facebook', 'instagram', 'twitter',
-                  'linkedin', 'google', 'pinterest')
+                  'linkedin', 'google', "status", 'pinterest')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,6 +72,9 @@ class ProfileForm(forms.ModelForm):
                 Column('linkedin', css_class='mt-10 form-group col-md-4 mb-0'),
                 Column('pinterest', css_class='mt-10 form-group col-md-4 mb-0'),
                 css_class='form-row'
+            ),
+            Row(
+                InlineRadios('status', css_class='mt-10 form-group col-md-6 mb-0'),
             ),
             Submit('submint', 'Submit'),
         )

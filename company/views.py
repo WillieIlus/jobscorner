@@ -1,15 +1,17 @@
 from builtins import super
 
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # from django.core.checks import messages
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views.generic import DeleteView, CreateView
 from extra_views import CreateWithInlinesView, UpdateWithInlinesView, InlineFormSetFactory
 from hitcount.views import HitCountDetailView
 
-from accounts.decorators import UserRequiredMixin
+from accounts.decorators import UserRequiredMixin, employer_required
 from category.models import Category
 from company.models import Company, CompanyImage, OpeningHours, ClosingRules
 # Category views
@@ -62,7 +64,8 @@ class PhotosInline(InlineFormSetFactory):
     fields = ['img', 'alt']
 
 
-class CompanyCreate(LoginRequiredMixin, CreateWithInlinesView):
+@method_decorator([login_required, employer_required], name='dispatch')
+class CompanyCreate(CreateWithInlinesView):
     model = Company
     inlines = [PhotosInline]
     form_class = CompanyForm

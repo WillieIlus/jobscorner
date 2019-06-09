@@ -1,18 +1,18 @@
 from builtins import super
 
-from category.models import Category
-from company.models import Company, CompanyImage, OpeningHours
-from crispy_forms import helper
-from crispy_forms.bootstrap import StrictButton, InlineRadios
+from crispy_forms.bootstrap import InlineRadios
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Column, Layout, Row, Submit
 from django import forms
 # from django.contrib.admin import widgets
 from django.forms import inlineformset_factory, ModelForm, formset_factory, widgets
+from pagedown.widgets import PagedownWidget
 
+from blog.models import STATUS_CHOICES
+from category.models import Category
+from company.models import Company, CompanyImage, OpeningHours
 from country.models import Country
 from location.models import Location
-from pagedown.widgets import PagedownWidget
 
 
 class CompanyForm(ModelForm):
@@ -33,13 +33,15 @@ class CompanyForm(ModelForm):
     email = forms.EmailField(label='', max_length=200, required=True,
                              widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     address = forms.CharField(label='', required=False, widget=forms.TextInput(attrs={'placeholder': 'Address'}))
+    status = forms.ChoiceField(label='status', required=False, widget=forms.RadioSelect, choices=STATUS_CHOICES)
     tags = forms.CharField(label='', required=False,
                            widget=forms.TextInput(attrs={'placeholder': 'Tags, A comma-separated list of tags'}))
 
     class Meta:
         model = Company
         fields = (
-            'name', 'logo', 'image', 'description', 'website', 'twitter', 'location', 'category', 'email', 'address')
+            'name', 'logo', 'image', 'description', 'website', 'twitter', 'location', 'category', 'email', "status",
+            'address')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,6 +70,9 @@ class CompanyForm(ModelForm):
                 Column('openTime', css_class='mt-10 form-group col-md-6 mb-0'),
                 Column('closeTime', css_class='mt-10 form-group col-md-6 mb-0'),
                 css_class='form-row'
+            ),
+            Row(
+                InlineRadios('status', css_class='mt-10 form-group col-md-6 mb-0'),
             ),
             Submit('submit', 'Add Your Company'),
         )
@@ -116,7 +121,6 @@ class OpeningHoursForm(ModelForm):
     to_hour = forms.TimeField(label='To Hour', required=False,
                               widget=widgets.TimeInput(attrs={'placeholder': '18:00:00'}))
 
-
     class Meta:
         model = OpeningHours
         fields = ('weekday', 'from_hour', 'to_hour')
@@ -145,8 +149,8 @@ class CompanyFilterForm(forms.Form):
         (4, ''),
         (5, ''),
     )
-    category = forms.ModelChoiceField( label="Category", required=False, queryset=Location.objects.all(),)
-    country = forms.ModelChoiceField( label="Country", required=False, queryset=Country.objects.all(),)
-    location = forms.ModelChoiceField( label="Actor", required=False, queryset=Location.objects.all(),)
+    category = forms.ModelChoiceField(label="Category", required=False, queryset=Location.objects.all(), )
+    country = forms.ModelChoiceField(label="Country", required=False, queryset=Country.objects.all(), )
+    location = forms.ModelChoiceField(label="Actor", required=False, queryset=Location.objects.all(), )
     rating = forms.ChoiceField(label="Rating", required=False, choices=RATING_CHOICES,
-)
+                               )

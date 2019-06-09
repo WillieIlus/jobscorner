@@ -68,7 +68,7 @@ class JobList(ListView):
 
 
 def job_list_view(request):
-    job_list = Job.objects.all()
+    job_list = Job.published.all()
     job_filter = JobFilter(request.GET, queryset=job_list)
     return render(request, 'job/list.html', {'filter': job_filter})
 

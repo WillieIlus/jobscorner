@@ -14,14 +14,14 @@ from .models import Profile, Skill, Experience, Education
 
 
 class ProfileList(ListView):
-    model = Profile
+    queryset = Profile.published.all()
     context_object_name = 'profile'
     template_name = 'resume/list.html'
     paginate_by = 6
 
 
 class ProfileDetail(DetailView):
-    model = Profile
+    queryset = Profile.published.all()
     context_object_name = 'profile'
     template_name = 'resume/detail.html'
 

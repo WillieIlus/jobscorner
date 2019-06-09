@@ -6,7 +6,7 @@ from company.signals import handlers
 
 class CompanyConfig(AppConfig):
     name = 'company'
-    verbose_name = 'company'
+    verbose_name = 'Company'
 
     def ready(self):
         post_migrate.connect(handlers.create_notice_types, sender=self)

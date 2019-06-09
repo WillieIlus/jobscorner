@@ -11,12 +11,19 @@ from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
 
 from accounts.models import User
+from blog.models import STATUS_CHOICES
 from category.models import Category
 from location.models import Location
 
 
 class TaggedCompany(TaggedItemBase):
     content_object = models.ForeignKey('Company', on_delete=models.PROTECT)
+
+
+class PublishedManager(models.Manager):
+
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
 class Company(models.Model):
@@ -34,10 +41,15 @@ class Company(models.Model):
                                  on_delete=models.PROTECT)
     email = models.EmailField(blank=True, null=True, help_text="Please leave empty if none")
     address = models.CharField(max_length=255, blank=True, )
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     tags = TaggableManager(through=TaggedCompany)
 
     publish = models.DateTimeField('date published', auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    objects = models.Manager()
+    published = PublishedManager()
 
     class Meta:
         ordering = ('name',)

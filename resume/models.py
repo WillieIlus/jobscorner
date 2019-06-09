@@ -1,15 +1,23 @@
-from accounts.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from location.models import Location
 from taggit.managers import TaggableManager
 from taggit.models import TaggedItemBase
+
+from accounts.models import User
+from blog.models import STATUS_CHOICES
+from location.models import Location
 
 
 class TaggedProfile(TaggedItemBase):
     content_object = models.ForeignKey('Profile', on_delete=models.PROTECT)
+
+
+class PublishedManager(models.Manager):
+
+    def get_queryset(self):
+        return super(PublishedManager, self).get_queryset().filter(status='published')
 
 
 class Profile(models.Model):
@@ -28,10 +36,15 @@ class Profile(models.Model):
     linkedin = models.CharField(max_length=100, blank=True)
     google = models.CharField(max_length=100, blank=True)
     pinterest = models.CharField(max_length=100, blank=True)
+
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     tags = TaggableManager(through=TaggedProfile)
 
     publish = models.DateTimeField('date published', auto_now_add=True)
     updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    objects = models.Manager()
+    published = PublishedManager()
 
     def save(self, *args, **kwargs):
         slug = slugify(self.user.username)

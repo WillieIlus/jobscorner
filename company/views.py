@@ -21,7 +21,7 @@ from .forms import CompanyForm, OpeningHoursForm, CompanyFilterForm
 
 
 def company_list_view(request):
-    company_list = Company.objects.all()
+    company_list = Company.published.all()
     company_filter = CompanyFilter(request.GET, queryset=company_list)
     form = CompanyFilterForm(data=request.GET)
 
@@ -104,7 +104,7 @@ class CompanyDelete(LoginRequiredMixin, UserRequiredMixin, DeleteView):
 
 
 class CompanyDetail(HitCountDetailView):
-    model = Company
+    queryset = Company.published.all()
     template_name = 'company/detail.html'
     context_object_name = 'company'
     slug_field = 'slug'

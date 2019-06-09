@@ -3,10 +3,15 @@ from django.db.models.signals import pre_save
 from django.urls import reverse
 from django.utils.text import slugify
 from taggit.managers import TaggableManager
+from taggit.models import TaggedItemBase
 
 from accounts.models import User
 from blog.utils import get_read_time
 from category.models import Category
+
+
+class TaggedPost(TaggedItemBase):
+    content_object = models.ForeignKey('Post', on_delete=models.PROTECT)
 
 
 class PublishedManager(models.Manager):
@@ -50,7 +55,6 @@ class Post(models.Model):
         'description': 'content',
         'image': 'get_meta_image',
     }
-
 
     def get_meta_image(self):
         if self.image:

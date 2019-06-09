@@ -62,7 +62,7 @@ class JobEdit(LoginRequiredMixin, UserRequiredMixin, UpdateView):
 
 
 class JobList(ListView):
-    model = Job
+    queryset = Job.published.all()
     context_object_name = 'job'
     template_name = 'job/list.html'
 
@@ -74,7 +74,7 @@ def job_list_view(request):
 
 
 class JobDetail(DetailView):
-    model = Job
+    queryset = Job.published.all()
     context_object_name = 'job'
     template_name = 'job/detail.html'
 

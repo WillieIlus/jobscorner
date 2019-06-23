@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}  Price List  | {{ block.super }} {% endblock %}
+{% block lead %}
+Price List
+{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common breadcrumb-item active">
+  Location List
+</a>
+<a class="btn btn-common" href='{% url "location:new" %}'>
+  new
+</a>
+{% endblock  %}
+
+
+{% block content %}
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <h1 class="">Service Prices</h1>
+      <br/>
+      <div class="list-style">
+        <div class="row">
+          <div class="col-md-3">
+            <p>SERVICE</p>
+          </div>
+          <div class="col-md-3">
+            <p>ITEM</p>
+          </div>
+          <div class="col-md-3">
+            <p>AV PRICE</p>
+          </div>
+          <div class="col-md-3">
+            <p>ENTRIES</p>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <br/>
+      {% if service_list %}
+      {% for obj in service_list %}
+      <div class="alerts-content">
+        <div class="row">
+          <div class="col-md-3">
+            <h4><a href="{{ obj.get_absolute_url }}">{{ obj.name }}</a></h4>
+            <span class="text-muted"><i class="ti-location-pin"></i> {{ obj.location }},  {{ obj.location.country.name }}</span>
+          </div>
+          <div class="col-md-3">
+            <p>{{ obj.type }}</p>
+          </div>
+          <div class="col-md-3">
+            <p><span class="label label-pill label-primary-filled">KSH {{ obj.average_price | floatformat }}</span></p>
+          </div>
+          <div class="col-md-3">
+            <p class="text-muted">{{ obj.service.count }}</p>
+          </div>
+        </div>
+      </div>
+      <br/>
+      <hr/>
+      <br/>
+      {% endfor %}
+      {% else %}
+      <p>No prices are available.</p>
+      {% endif %}
+      <div class="mb-60">&nbsp;</div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}

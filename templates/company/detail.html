@@ -4,6 +4,7 @@
 {% load pinax_likes_tags %}
 {% load activity_tags %}
 {% load accounts_tags %}
+{% load social_share %}
 <title>{% block title %} {{ company.name }} | {{ block.super }} {% endblock %}</title>
 
 {% block breadcrumb %}
@@ -74,7 +75,7 @@
           <div class="col-md-12 post-header-line">
             <h2 class="title-2 text-primary">{{ company.name }}</h2>
             <span class="pull-right label label-pill label-primary">
-              {{ hitcount.total_hits }} Views This Month
+              {{ hitcount.total_hits }} Views
             </span>
             <br/>
             <p>
@@ -112,8 +113,10 @@
                   {% endfor %}
                   <a class="btn btn-success" href='{% url "company:add_open_hours" company.slug %}'>Add Other days </a>
                   {% else %}
+                  {% if company.user == request.user %}
                   <a class="btn btn-success" href='{% url "company:add_open_hours" company.slug %}'>Add Business
                     Hours </a>
+                  {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -135,10 +138,20 @@
         <div class="pull-right">
           <div class="social-footer">
             <span> Share on </span>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}">
-              <i class="fa fa-facebook icon-round"></i></a>
-            <a href="https://twitter.com/home?status={{ company.name }}%20{{ request.build_absolute_uri }}/">
-              <i class="fa fa-twitter icon-round"></i></a>
+              <div class="social-footer row">
+    <span>
+    {% post_to_facebook object_or_url "<i class='fa fa-facebook icon-round'></i>" %}
+    </span>
+    <span>
+    {% post_to_twitter "{{company.name}}. Check it out!" object_or_url "<i class='fa fa-twitter icon-round'></i>" %}
+    </span>
+    <span>
+    {% post_to_linkedin object.title object_or_url "<i class='fa fa-linkedin icon-round'></i>" %}
+    </span>
+      <span>
+    {% send_email object.title "{{company.name}}. Check it out!" object_or_url "<i class='fa fa-envelope icon-round'></i>" %}
+    </span>
+  </div>
           </div>
         </div>
       </div>

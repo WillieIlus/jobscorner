@@ -29,6 +29,8 @@ class LocationList(ListView):
     model = Location
     context_object_name = 'location'
     template_name = 'location/list.html'
+    paginate_by = 12
+    queryset = Location.objects.all()
 
 
 class LocationDetail(DetailView):

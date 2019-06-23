@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 {% load accounts_tags %}
+{% load price_tags %}
 {% load company_tags %}
 {% load job_tags %}
 {% load category_tags %}
 {% load review_tags %}
 {% load pinax_likes_tags %}
 {% load staticfiles %}
+{% load social_share %}
 {% block breadcrumb %}
 {% endblock  %}
 {% block content %}
 {% include "header.html" %}
 
 <div class="container">
+    <div class="row">
+    <div class="col-12">
+      <div class="page-header-title">
+        <h2 class="heading-title text-center"> Latest Pricelists </h2>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    {% show_services 10 %}
+  </div>
   <div class="row">
     <div class="col-12">
       <div class="page-header-title">
@@ -50,17 +62,8 @@
       </a>
     </div>
   </div>
-
-  <div class="row">
-    <div class="col-12">
-      <div class="page-header-title">
-        <h2 class="heading-title text-center"> Latest Jobs </h2>
-      </div>
-    </div>
-  </div>
-  {% show_latest_jobs 8%}
 </div>
-
+ {% if request.user.is_authenticated %}
 <!-- facts Section Start -->
 <div id="counter">
   <div class="container">
@@ -96,11 +99,8 @@
   </div>
 </div>
 <!-- facts Section End -->
+{% endif %}
 <div class="mb-60">&nbsp;</div>
-
-{% show_latest_profile 3 %}
-
-{% show_latest_reviews 11 %}
 
 {% include "call-to-action.html"%}
 

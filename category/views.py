@@ -8,7 +8,8 @@ from category.models import Category
 
 class CategoryList(ListView):
     model = Category
-    paginate_by = 1
+    paginate_by = 3
+    queryset = Category.objects.all()
     context_object_name = "category"
     template_name = 'category/list.html'
 

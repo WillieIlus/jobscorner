@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from accounts.decorators import normal_user_required
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -41,8 +43,7 @@ class ProfileDelete(DeleteView):
     template_name = 'resume/delete.html'
 
 
-@method_decorator([login_required, normal_user_required], name='dispatch')
-class ProfileCreate(CreateView):
+class ProfileCreate(LoginRequiredMixin, CreateView):
     template_name = 'form.html'
 
     def form_valid(self, form):

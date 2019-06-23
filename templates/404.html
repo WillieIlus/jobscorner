@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block title %}  {{ location.name }}  | {{ block.super }} {% endblock %}
+{% block lead %}
+{{ location.name }}
+{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common" href='{% url "location:list" %}'>Location List
+</a>
+<a class="btn btn-common active">{{ location.name }}
+</a>
+{% endblock  %}
+
+
+{% block content %}
+<div class="container">
+ <h1>
+720 </h1>
+</div>
+<div class="mb-60"></div>
+{% endblock content %}

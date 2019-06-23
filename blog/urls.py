@@ -11,7 +11,7 @@ urlpatterns = [
     path('<slug:slug>/delete/', PostDelete.as_view(), name='delete'),
 
     path('', PostList.as_view(), name='list'),
-    path('/<post_id>/add_comment/', add_comment, name='add_comment'),
+    path('<post_id>/add_comment/', add_comment, name='add_comment'),
 
 ]
 

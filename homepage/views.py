@@ -13,17 +13,17 @@ from job.models import Job
 from reviews.models import Review
 
 
-class HomeIndex(LoginRequiredMixin, TemplateView):
+class HomeIndex(TemplateView):
     model = None
     context_object_name = 'home'
     template_name = 'home.html'
 
     def get_context_data(self, **kwargs):
         context = super(HomeIndex, self).get_context_data(**kwargs)
-        context['company'] = Company.objects.all()[:5]
-        context['job'] = Job.objects.all()[:5]
-        context['category'] = Category.objects.all()[:5]
-        context['reviews'] = Review.objects.all()[:5]
+        context['company'] = Company.objects.all()
+        context['job'] = Job.objects.all()
+        context['category'] = Category.objects.all()
+        context['reviews'] = Review.objects.all()
 
         return context
 
@@ -39,11 +39,11 @@ class Dashboard(LoginRequiredMixin,  TemplateView):
     context_object_name = 'user'
     template_name = 'accounts/dashboard.html'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['company'] = Company.objects.all()[:5]
-    #     context['job'] = Job.objects.all()[:5]
-    #     context['category'] = Category.objects.all()[:5]
-    #     context['reviews'] = Review.objects.all()[:5]
-    #
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['company'] = Company.objects.all()[:5]
+        context['job'] = Job.objects.all()[:5]
+        context['category'] = Category.objects.all()[:5]
+        context['reviews'] = Review.objects.all()[:5]
+
+        return context

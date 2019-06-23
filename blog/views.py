@@ -66,7 +66,6 @@ def add_comment(request, post_id):
         comment.post = post
         comment.user = request.user
         comment.body = body
-        # comment.pub_date = datetime.datetime.now()
         comment.save()
         '''
         Always return an HttpResponseRedirect after successfully dealing

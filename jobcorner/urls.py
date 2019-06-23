@@ -24,7 +24,7 @@ from django_filters.views import FilterView
 from homepage.views import HomeIndex, UserFilter, Dashboard
 
 urlpatterns = [
-    path('', Dashboard.as_view(), name='dashboard'),
+    path('dashboard', Dashboard.as_view(), name='dashboard'),
     path('', HomeIndex.as_view(), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls', namespace='accounts')),
@@ -50,6 +50,8 @@ urlpatterns = [
     path('about-us/', flatpage, {'url': '/about-us/'}, name='about'),
     path('license/', flatpage, {'url': '/license/'}, name='license'),
     path('terms/', flatpage, {'url': '/terms/'}, name='terms'),
+    path('pricelist/', include('pricelist.urls', namespace='pricelist')),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

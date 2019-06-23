@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     "pinax.notifications",
     'hitcount',
     'meta',
+    'django_social_share',
 
     'accounts',
     'blog',
@@ -65,6 +66,8 @@ INSTALLED_APPS = [
     'location',
     'reviews',
     'resume',
+    # 'polls',
+    'pricelist',
 
     'actstream',
 

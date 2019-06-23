@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load social_share %}
+
+{% block title %}  {{ service.name }}  | {{ block.super }} {% endblock %}
+{% block lead %}
+{{ service.name }}
+{% endblock %}
+{% block jumbotron %}
+<a class="btn btn-common" href='{% url "pricelist:list" %}'>Price List
+</a>
+<a class="btn btn-common active">{{ service.name }}
+</a>
+{% endblock  %}
+
+
+{% block content %}
+<div class="container">
+  <div class="card clearfix">
+    <div class="card-body">
+      <div class="mb-60"></div>
+      <h3 class="text-center">
+        Price of {{ service.name }} {{ service.type }} {{ service.item }} in {{ service.location }}
+      </h3>
+      <div class="mb-60"></div>
+      <div class="col-md-12 text-center">
+        <p>{{ service.description | truncatechars:500 }}</p>
+        <br/>
+        <div class="pull-right ">
+          <span class="text-mute">
+            Asked by: {{ service.user }} |
+            {{ service.publish | date }}
+          </span>
+        </div>
+        <br/>
+        <hr/>
+      </div>
+      <div class=" col-md-8">
+        <div class="page-header-title text-center mx-auto">
+          <h1>
+            <span>Av Price</span>
+            <span class=" pull-right text-right">Ksh: {{ service.average_price | floatformat }} </span></h1>
+        </div>
+      </div>
+      <div class="pull-right">
+        {% if service.service.count == 1 %}
+        Offered by {{ service.service.count }} company
+        {% else %}
+        Offered by {{ service.service.count }} companies
+        {% endif %}
+        <h6>
+          Share on
+        </h6>
+  <div class="social-footer row">
+    <span>
+    {% post_to_facebook object_or_url "<i class='fa fa-facebook icon-round'></i>" %}
+    </span>
+    <span>
+    {% post_to_twitter "Price of: {{service.name}}. Check it out!" object_or_url "<i class='fa fa-twitter icon-round'></i>" %}
+    </span>
+    <span>
+    {% post_to_linkedin object.title object_or_url "<i class='fa fa-linkedin icon-round'></i>" %}
+    </span>
+      <span>
+    {% send_email object.title "Price of: {{service.name}}. Check it out!" object_or_url "<i class='fa fa-envelope icon-round'></i>" %}
+    </span>
+  </div>
+      </div>
+      <div class="mb-60"></div>
+    </div>
+  </div>
+
+  <div class="row">
+    <!--form-->
+    <div class="col-md-12 mb-2">
+      <div class="blog-block mx-auto">
+        <div class="card-body">
+          <h2>Add Your Price</h2>
+          {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+          <form action="{% url 'pricelist:add_price' service.id %}" class="form-ad" enctype="multipart/form-data"
+                method="post">
+            <div class="form-group is-empty">
+              {% csrf_token %}
+              {% crispy form %}
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--endform-->
+    <div class="col-md-12 clearfix">
+      {% if service.service %}
+      {% for obj in service.service.all %}
+      <div class="card mb-2">
+        <div class="card-body ">
+          <div class="row">
+            <div class="col-md-3 col-sm-12">
+              {% if obj.image %}
+              <a href="">
+                <img class="d-block w-100" src='{{ obj.image.url }}'/>
+              </a>
+              {% else %}
+              <a href="">
+                <img class="d-block w-100" src='{% static "img/avatar.svg" %}'>
+              </a>
+              {% endif %}
+            </div>
+            <div class="col-md-6 col-sm-12">
+              <div class="col-md-12 post-header-line">
+                <h4 class="card-title">
+                  <a href="{{ obj.get_absolute_url }}">
+                    {{ obj.company.name }}
+                  </a>
+                  <button class="label label-pill label-primary-filled">
+                    KSH {{ obj.amount | floatformat }}
+                  </button>
+                </h4>
+                {% if obj.company.website %}
+                <h6 class="card-subtitle mb-2 text-muted"><a href="{{ obj.company.website}}"> Website </a></h6>
+                {% endif %}
+                <p class="card-text">{{ obj.description|truncatechars:250 }}</p>
+              </div>
+            </div>
+            <div class="pull-right col-md-3 col-sm-12">
+              <a class="btn btn-primary" href="{% url 'pinax_messages:message_user_create' user_id=object.user.id %}">
+                <i class="fa fa-envelope"></i> Request a Quote
+              </a>
+              <hr/>
+              <div>
+                {{ obj.publish | date }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      {% else %}
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">No Price has been given yet</h5>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-md-4 pull-right">
+    </div>
+  </div>
+</div>
+<div class="mb-60"></div>
+{% endblock content %}

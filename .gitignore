@@ -2,8 +2,9 @@ __pycache__/
 *.py[cod]
 .env
 venv/
-
+migrations/
 
 # SQLite database files
 
 *.sqlite3
+.settings.py

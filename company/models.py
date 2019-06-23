@@ -41,6 +41,7 @@ class Company(models.Model):
                                  on_delete=models.PROTECT)
     email = models.EmailField(blank=True, null=True, help_text="Please leave empty if none")
     address = models.CharField(max_length=255, blank=True, )
+    votes = models.PositiveIntegerField(default=0)
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="draft")
     tags = TaggableManager(through=TaggedCompany)
@@ -163,3 +164,32 @@ class ClosingRules(models.Model):
 
     def get_absolute_url(self):
         return reverse('company:detail', kwargs={"slug": self.company.slug})
+
+
+VOTE_CHOICES = (
+    (+1, '+1'),
+    (-1, '-1'),
+)
+
+
+class Vote(models.Model):
+    vote = models.SmallIntegerField(choices=VOTE_CHOICES)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE)
+
+    publish = models.DateTimeField('date published', auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True, auto_now_add=False)
+
+    class Meta:
+        verbose_name = "Vote"
+        verbose_name_plural = "Votes"
+        unique_together = (('user', 'company', 'vote'),)
+
+    def __str__(self):
+        return '%s: %s on %s' % (self.user, self.vote, self.company)
+
+    def is_upvote(self):
+        return self.vote == 1
+
+    def is_downvote(self):
+        return self.vote == -1

@@ -23,7 +23,6 @@ markdown2==2.3.7
 np==1.0.2
 numpy==1.16.2
 pilkit==2.0
-Pillow==5.4.1
 pinax-blog==7.0.4
 pinax-images==3.0.1
 pinax-likes==3.0.1

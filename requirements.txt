@@ -30,7 +30,7 @@ pinax-messages==2.0.2
 pinax-notifications==5.0.3
 pinax-testimonials==2.0.4
 Pygments==2.3.1
-PyPDF2==1.26.0
+PyPDF2==1.27.5
 python-decouple==3.1
 pytz==2018.9
 reportlab==3.5.18

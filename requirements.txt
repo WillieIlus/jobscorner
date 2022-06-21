@@ -21,7 +21,7 @@ jsonfield==2.0.2
 Markdown==3.0.1
 markdown2==2.3.7
 np==1.0.2
-numpy==1.16.2
+numpy==1.22.0
 pilkit==2.0
 pinax-blog==7.0.4
 pinax-images==3.0.1
